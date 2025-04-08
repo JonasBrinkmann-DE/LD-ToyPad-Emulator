@@ -5,29 +5,34 @@
 	See file "LICENSE" or go to "https://choosealicense.com/licenses/mit" for full license details.
 */
 
+const { Server } = require("socket.io");
+const express = require("express");
+const helmet = require("helmet");
 const ld = require("node-ld");
-const fs = require("fs");
 const path = require("path");
-const { DH_CHECK_P_NOT_PRIME } = require("constants");
+const http = require("http");
+const fs = require("fs");
 
 //Setup Webserver
-const express = require("express");
-const app = express();
-const http = require("http");
 const server = http.createServer(app);
-const { Server } = require("socket.io");
 const io = new Server(server);
+const app = express();
 
 //File where tag info will be saved
-const toytagFileName = path.join(__dirname, "server/json/toytags.json");
+
+const jsonFolder = path.join(__dirname, "server/json/");
+const toytagsPath = path.join(jsonFolder, "toytags.json");
+const tokenMapPath = path.join(jsonFolder, "tokenmap.json");
+const characterMapPath = path.join(jsonFolder, "charactermap.json");
+
+let wasConnectionEstablished = false;
 
 const tp = new ld.ToyPadEmu();
 tp.registerDefaults();
 
 initalizeToyTagsJSON(); //Run in case there were any leftovers from a previous run.
 
-let wasConnectionEstablished = false;
-
+app.use(helmet());
 //Create a token JSON object from provided vehicle data
 /* Vehicle Data Explained:
  * All data is transfered through a series of buffers. The data from these buffers needs to written to specific points (pages) in the token's
@@ -40,10 +45,10 @@ let wasConnectionEstablished = false;
 
 function createVehicle(id, upgrades, uid) {
   upgrades = upgrades || [0, 0];
-  const token = new Buffer(180);
-  token.fill(0);
+  const token = Buffer.alloc(180);
+
   token.uid = uid;
-  //console.log(upgrades);
+
   token.writeUInt32LE(upgrades[0], 0x23 * 4);
   token.writeUInt16LE(id, 0x24 * 4);
   token.writeUInt32LE(upgrades[1], 0x25 * 4);
@@ -53,7 +58,7 @@ function createVehicle(id, upgrades, uid) {
 
 //Create a token JSON object from provided character data
 function createCharacter(id, uid) {
-  const token = new Buffer(180);
+  const token = Buffer.alloc(180);
   token.fill(0); // Game really only cares about 0x26 being 0 and D4 returning an ID
   token.uid = uid;
   token.id = id;
@@ -61,102 +66,132 @@ function createCharacter(id, uid) {
 }
 
 //This finds a character or vehicles name from the ID provided.
+
+function getCharacterNameFromID(id) {
+  const data = fs.readFileSync(characterMapPath, "utf8");
+  const database = JSON.parse(data);
+
+  for (const selector in database) {
+    const entry = database[selector];
+
+    if (entry.id === id) {
+      return entry.name;
+    }
+  }
+  return "N/A";
+}
+function getTokenNameFromID(id) {
+  const data = fs.readFileSync(tokenMapPath, "utf8");
+  const database = JSON.parse(data);
+
+  for (const selector in database) {
+    const entry = database[selector];
+
+    if (entry.id === id) {
+      return entry.name;
+    }
+  }
+  return "N/A";
+}
 function getNameFromID(id) {
-  if (id < 1000)
-    dbfilename = path.join(__dirname, "server/json/charactermap.json");
-  else dbfilename = path.join(__dirname, "server/json/tokenmap.json");
-  let name = "test";
-  const data = fs.readFileSync(dbfilename, "utf8");
-  const databases = JSON.parse(data);
-  databases.forEach((db) => {
-    if (id == db.id) {
-      name = db.name;
+  if (id < 1000) {
+    return getCharacterNameFromID(id);
+  }
+  return getTokenNameFromID(id);
+}
+
+//Finds and returns json entry from toytags.json by uid
+function getToytagFromUID(uid) {
+  const data = fs.readFileSync(toytagsPath, "utf8");
+  const database = JSON.parse(data);
+
+  for (const selector in database) {
+    const entry = database[selector];
+
+    if (entry.uid === uid) {
+      return entry;
     }
-  });
-
-  return name;
+  }
+  return null;
 }
 
-//This finds and returns an JSON entry from toytags.json with the matching uid.
-function getJSONFromUID(uid) {
-  const data = fs.readFileSync(toytagFileName, "utf8");
-  const databases = JSON.parse(data);
-  let entry;
-  databases.forEach((db) => {
-    if (db.uid == uid) entry = db;
-  });
-  return entry;
-}
-
-//This updates the pad index of a tag in toytags.json, so that info can be accessed locally.
+//Updates the pad index of a tag in toytags.json, so that info can be accessed locally.
 function updatePadIndex(uid, index) {
-  console.log("Planning to set UID: " + uid + " to index " + index);
-  const data = fs.readFileSync(toytagFileName, "utf8");
-  const databases = JSON.parse(data);
-  databases.forEach((db) => {
-    if (uid == db.uid) {
-      db.index = index;
-    }
-  });
-  fs.writeFileSync(
-    toytagFileName,
-    JSON.stringify(databases, null, 4),
-    function () {
-      console.log("Set UID: " + uid + " to index " + index);
-    }
-  );
-}
+  const data = fs.readFileSync(toytagsPath, "utf8");
+  const database = JSON.parse(data);
 
-//This searches toytags.json and returns to UID of the entry with the matching index.
-function getUIDFromIndex(index) {
-  const data = fs.readFileSync(toytagFileName, "utf8");
-  const databases = JSON.parse(data);
-  let uid;
-  databases.forEach((db) => {
-    if (index == db.index) {
-      uid = db.uid;
+  for (const selector in database) {
+    if (database[selector].uid === uid) {
+      database[selector].index = index;
+      break;
     }
-  });
-  return uid;
-}
-
-//This updates the provided datatype, of the entry with the matching uid, with the provided data.
-function writeJSONData(uid, datatype, data) {
-  console.log("Planning to set " + datatype + " of " + uid + " to " + data);
-  const tags = fs.readFileSync(toytagFileName, "utf8");
-  const databases = JSON.parse(tags);
-  databases.forEach((db) => {
-    if (uid == db.uid) {
-      db[datatype] = data;
+  }
+  fs.writeFileSync(toytagsPath, JSON.stringify(database, null, 4), (err) => {
+    if (err) {
+      console.warn(`Failed to update pad index of [${uid}]!`);
       return;
     }
+    console.log(`Successfully updated pad index of [${uid}]!`);
   });
-  fs.writeFileSync(
-    toytagFileName,
-    JSON.stringify(databases, null, 4),
-    function () {
-      console.log("Set " + datatype + " of " + uid + " to " + data);
-    }
-  );
 }
 
-//This sets all saved index values to '-1' (meaning unplaced).
+//Searches toytags.json and returns to UID of the entry with the matching index.
+function getToytagUIDFromIndex(index) {
+  const data = fs.readFileSync(toytagsPath, "utf8");
+  const database = JSON.parse(data);
+
+  for (const selector in database) {
+    const entry = database[selector];
+    if (entry.index === index) {
+      return entry.uid;
+    }
+  }
+  return "N/A";
+}
+
+//Updates the provided datatype, of the entry with the matching uid, with the provided data.
+function writeJSONData(uid, datatype, data) {
+  console.log("Planning to set " + datatype + " of " + uid + " to " + data);
+  const tags = fs.readFileSync(toytagsPath, "utf8");
+  const databases = JSON.parse(tags);
+  for (const selector in database) {
+    if (database[selector].index === index) {
+      database[selector][datatype] = data;
+      break;
+    }
+  }
+
+  fs.writeFileSync(toytagsPath, JSON.stringify(databases, null, 4), (err) => {
+    if (err) {
+      console.warn(`Could not update entry because uid is invalid! [${uid}]!`);
+      return false;
+    }
+    console.log(
+      `Successfully updated [${datatype}] of entry [${uid}] to [${data}]!`
+    );
+    return true;
+  });
+}
+
+//Unplaces all tags by updating their indexes to -1
 function initalizeToyTagsJSON() {
-  const data = fs.readFileSync(toytagFileName, "utf8");
+  const data = fs.readFileSync(toytagsPath, "utf8");
   const databases = JSON.parse(data);
   databases.forEach((db) => {
     db.index = "-1";
   });
-  fs.writeFileSync(
-    toytagFileName,
-    JSON.stringify(databases, null, 4),
-    function () {
-      console.log("Initalized toytags.JSON");
-      io.emit("refreshTokens");
+
+  fs.writeFileSync(toytagsPath, JSON.stringify(databases, null, 4), (err) => {
+    if (err) {
+      console.error("Failed to write initalized data to toytags.json", err);
+      return;
     }
-  );
+
+    io.emit("refreshTokens");
+  });
 }
 
+//TODO: Locate keystone (too many possible values to find by hand. need help here)
 function RGBToHex(r, g, b) {
   r = r.toString(16);
   g = g.toString(16);
@@ -165,44 +200,38 @@ function RGBToHex(r, g, b) {
   if (r.length == 1) r = "0" + r;
   if (g.length == 1) g = "0" + g;
   if (b.length == 1) b = "0" + b;
-  const hex = `#${r}${g}${b}`;
+  let hex = `#${r}${g}${b}`;
 
+  //Note: I removed comments when I orginized this, this should be documented in an external document.
   switch (hex) {
-    //idle (full white)
+    case "#ff6e18":
+    case "#f06716":
     case "#99420e":
       hex = "#ffffff";
       break;
-
-    //rainbow sequence (title screen, some are used by keystones)
-    case "#ff0000": //red
+    case "#ff0000":
       break;
     case "#ff6e00":
-      hex = "#ffff00"; //yellow
+      hex = "#ffff00";
       break;
+    case "#003700":
+    case "#006700":
     case "#006e00":
-      hex = "#00ff00"; //green
+      hex = "#00ff00";
       break;
     case "#006e18":
-      hex = "#00ffff"; //cyan
+      hex = "#00ffff";
       break;
-    case "#000018":
-      hex = "#0000ff"; //blue
-      break;
-    case "#ff0018":
-      hex = "#ff00ff"; //pink
-      break;
-
-    //wyldstyle scanner
-    case "#f00016":
-      hex = "#ff2de6";
-      break;
-
-    //batman stealth
+    case "#000016":
     case "#000018":
       hex = "#0000ff";
       break;
-
-    //shift keystone (dark colors for blink animation)
+    case "#ff0018":
+      hex = "#ff00ff";
+      break;
+    case "#f00016":
+      hex = "#ff2de6";
+      break;
     case "#002007":
       hex = "#007575";
       break;
@@ -212,9 +241,6 @@ function RGBToHex(r, g, b) {
     case "#4c0007":
       hex = "#750075";
       break;
-
-    //chroma keystone
-
     case "#3f1b05":
       hex = "#b0b0b0";
       break;
@@ -245,41 +271,6 @@ function RGBToHex(r, g, b) {
     case "#110003":
       hex = "#9300b0";
       break;
-
-    //element keystone
-    case "#000016":
-      hex = "#0000ff";
-      break;
-    case "#006700":
-      hex = "#00ff00";
-      break;
-    case "#f00000":
-      hex = "#ff0000";
-      break;
-    case "#000016":
-      hex = "#00ffff";
-      break;
-
-    //scale keystone
-    case "#ff1e00":
-      hex = "#ffa200";
-      break;
-    case "#f06716":
-      hex = "#ffffff";
-      break;
-
-    //locate keystone (too many possible values to find by hand. need help here)
-
-    //green (hack minigame)
-    case "#003700":
-      hex = "#00ff00";
-      break;
-
-    //other
-    case "#ff6e18":
-      hex = "#ffffff";
-      break;
-
     default:
       break;
   }
@@ -309,11 +300,12 @@ function getUIDAtPad(index) {
  *
  * This data is copied to the JSON for future use.
  */
+// file deepcode ignore NoRateLimitingForExpensiveWebOperation: <please specify a reason of ignoring this>
 tp.hook(tp.CMD_WRITE, (req, res) => {
   const ind = req.payload[0];
   const page = req.payload[1];
   const data = req.payload.slice(2);
-  const uid = getUIDFromIndex("2");
+  const uid = getToytagUIDFromIndex("2");
   console.log("REQUEST (CMD_WRITE): index:", ind, "page", page, "data", data);
 
   //The ID is stored in page 24
@@ -332,7 +324,7 @@ tp.hook(tp.CMD_WRITE, (req, res) => {
     io.emit("refreshTokens"); //Refreshes the html's tag gui.
   }
 
-  res.payload = new Buffer("00", "hex");
+  res.payload = Buffer.from([0x00], "hex");
   const token = tp._tokens.find((t) => t.index == ind);
   if (token) {
     req.payload.copy(token.token, 4 * page, 2, 6);
@@ -487,7 +479,7 @@ app.post("/character", (request, response) => {
   console.log("Creating character: " + request.body.id);
   const uid = tp.randomUID();
   const character = createCharacter(request.body.id, uid);
-  const name = getNameFromID(request.body.id, "character");
+  const name = getNameFromID(request.body.id);
 
   console.log(
     "name: " + name,
@@ -495,7 +487,7 @@ app.post("/character", (request, response) => {
     " id: " + character.id
   );
 
-  fs.readFile(toytagFileName, "utf8", (err, data) => {
+  fs.readFile(toytagsPath, "utf8", (err, data) => {
     if (err) {
       console.log(err);
     } else {
@@ -512,7 +504,7 @@ app.post("/character", (request, response) => {
       });
 
       fs.writeFile(
-        toytagFileName,
+        toytagsPath,
         JSON.stringify(tags, null, 4),
         "utf8",
         (err) => {
@@ -533,7 +525,7 @@ app.post("/character", (request, response) => {
 //This is called when a token is placed or move onto a position on the toypad.
 app.post("/characterPlace", (request, response) => {
   console.log("Placing tag: " + request.body.id);
-  const entry = getJSONFromUID(request.body.uid);
+  const entry = getToytagFromUID(request.body.uid);
 
   //console.log(entry.type);
 
@@ -565,11 +557,11 @@ app.post("/vehicle", (request, response) => {
   console.log("Creating vehicle: " + request.body.id);
   const uid = tp.randomUID();
   const vehicle = createVehicle(request.body.id, [0xefffffff, 0xefffffff], uid);
-  const name = getNameFromID(request.body.id, "vehicle");
+  const name = getNameFromID(request.body.id);
 
   console.log("name: " + name, " uid: " + vehicle.uid, " id: " + vehicle.id);
 
-  fs.readFile(toytagFileName, "utf8", (err, data) => {
+  fs.readFile(toytagsPath, "utf8", (err, data) => {
     if (err) {
       console.log(err);
     } else {
@@ -588,7 +580,7 @@ app.post("/vehicle", (request, response) => {
       tags.push(entry);
 
       fs.writeFile(
-        toytagFileName,
+        toytagsPath,
         JSON.stringify(tags, null, 4),
         "utf8",
         (err) => {
@@ -621,7 +613,7 @@ io.on("connection", (socket) => {
   //Listening for 'deleteToken' call from index.html
   socket.on("deleteToken", (uid) => {
     console.log("IO Recieved: Deleting entry " + uid + " from JSON");
-    const tags = fs.readFileSync(toytagFileName, "utf8");
+    const tags = fs.readFileSync(toytagsPath, "utf8");
     const databases = JSON.parse(tags);
     const index = -1;
     let i = 0;
@@ -637,7 +629,7 @@ io.on("connection", (socket) => {
       databases.splice(index, 1);
     }
     fs.writeFileSync(
-      toytagFileName,
+      toytagsPath,
       JSON.stringify(databases, null, 4),
       function () {
         if (index > -1) console.log("Token not found");
