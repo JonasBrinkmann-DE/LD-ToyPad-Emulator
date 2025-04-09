@@ -1,0 +1,138 @@
+#toybox-tokens {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    border-radius: 0.5rem;
+    min-height: auto;
+    margin-right: 0.5em;
+    background-color: #bdbdbd;
+
+    overflow-y: scroll;
+    position: relative;
+}
+
+#toybox-tokens li {
+    margin: 0.5em;
+    float: left;
+}
+
+#toybox-column {
+    margin-top: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: calc(100% - 80px);
+}
+
+#toybox-column,
+#toybox-tokens {
+    flex: 1;
+}
+
+.filter {
+    display: inline-block;
+    margin: 10px;
+}
+
+.filter label,
+.filter input {
+    display: block;
+}
+
+.delete-token {
+    z-index: 2;
+    position: absolute;
+    background-color: rgb(218, 52, 52);
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+    width: 7em;
+    border-radius: 0.5rem;
+}
+
+.delete-token img {
+    width: 32px;
+}
+
+#delete-token-left {
+    right: 24px
+}
+
+#delete-token-right {
+    left: 16px
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: baseline;
+    width: calc(100% - 2rem);
+    background-color: rgba(0, 0, 0, 0.014);
+    padding: 5px 20px;
+    border-radius: 0.9rem;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.219);
+}
+
+#filter-container {
+    display: flex;
+    align-items: center;
+}
+
+#filter-container input:focus-visible {
+    outline: none;
+}
+
+#filter-container {
+    height: 2.5rem;
+}
+
+#add-btn {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+
+#add-btn img {
+    margin: 0;
+
+}
+
+#filter-container input {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    padding-left: 0.8rem;
+    margin-top: 0;
+    text-align: left;
+    font-size: 0.8rem;
+    font-weight: 500;
+    height: calc(100% - 2px);
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+#filter-container select {
+    background-color: white;
+    height: 100%;
+    border: none;
+    padding-right: 2rem;
+    padding-left: 0.6rem;
+    margin-left: 0;
+    border-radius: 0.5rem;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-left: 1px solid #d6d2d2;
+}
+
+#action-container button {
+    width: 2.77rem;
+    height: 2.77rem;
+    text-align: center;
+    padding: 0;
+    border-radius: 100px;
+}
+
+#action-container {
+    margin-left: auto;
+}

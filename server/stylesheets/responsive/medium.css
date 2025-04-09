@@ -1,0 +1,28 @@
+@media screen and (max-width: 1556px) {
+    #layout-controller {
+        flex-direction: column;
+    }
+
+    .delete-token,
+    #toybox-tokens {
+        height: 40vh;
+    }
+
+    .flex-container {
+        min-width: 80vw;
+    }
+
+    .layout-column,
+    .layout-column:first-child,
+    .layout-column:last-child {
+        margin: 1.5em;
+    }
+
+    #toypad-column {
+        flex-basis: 0;
+    }
+
+    #toybox-column {
+        width: calc(100% - 80px);
+    }
+}

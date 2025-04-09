@@ -1,0 +1,41 @@
+@import url('components/toybox.css');
+@import url('components/toypad.css');
+
+input {
+    margin-bottom: 1em;
+    font-size: 1.2em;
+    border-radius: 0.5rem;
+    border: 1px solid transparent;
+    cursor: default;
+    text-align: center;
+    height: 2.2rem;
+    margin: 0;
+    margin-top: 1px;
+}
+
+input:focus-visible {
+    outline: 1px solid rgb(114, 114, 114);
+}
+
+button {
+    padding: 1em;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    border: 1px solid transparent;
+    cursor: pointer;
+    box-shadow: rgb(0 0 0 / 20%) 0 4px 12px;
+    background-color: #bdbdbd;
+    transition: background-color 250ms;
+}
+
+button:hover,
+button:active {
+    background-color: #8d8d8d;
+}
+
+.vl {
+    height: 1px;
+    width: 100%;
+    background-color: rgb(173, 173, 173);
+    margin-bottom: 5px;
+}

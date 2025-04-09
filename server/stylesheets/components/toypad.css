@@ -1,0 +1,85 @@
+.layout-column {
+    margin: 1.5em 0.75em;
+}
+
+.layout-column:first-child {
+    margin-left: 1.5em;
+}
+
+.layout-column:last-child {
+    margin-right: 1.5em;
+}
+
+.drop-targets:first-of-type {
+    margin-bottom: 0;
+    margin-top: 1rem;
+}
+
+.drop-targets {
+    display: flex;
+    margin: 0rem 1rem 1rem 1rem;
+    width: fit-content;
+}
+
+.flex-container {
+    flex-direction: column;
+    margin: auto;
+    background-color: #efefef;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+    padding: 1em;
+    display: flex;
+    min-height: 100px;
+    border-radius: 0.5rem;
+    position: relative;
+    min-width: 80vw;
+}
+
+#connectionHintPanel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.658);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+}
+
+#toypad-column {
+    margin: 0;
+}
+
+#toypad {
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: calc(24px + 1rem);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    background-color: #2e2e2e;
+    position: relative;
+    width: 95%;
+    max-width: fit-content;
+
+}
+
+.box {
+    width: var(--box-size);
+    height: var(--box-size);
+    flex-shrink: 0;
+    background-color: var(--pad-color);
+}
+
+.box[padnum="1"] {
+    border-radius: 100%;
+    bottom: 40px;
+    position: relative;
+}
+
+.box[style="visibility: hidden"] {
+    visibility: hidden;
+}
