@@ -4,6 +4,7 @@ Allows you to connect an emulated Toy Pad to your PC or video-game console.
 
 # IMPORTANT
 
+Website is still WIP and does not work!
 This fork of the original version from Berny23 is **EXPERIMENTAL**.
 
 Please contribute to this fork by opening issues.
