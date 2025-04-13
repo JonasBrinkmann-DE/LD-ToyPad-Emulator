@@ -21,7 +21,7 @@ Please contribute to this fork by opening issues.
 
 ## Demo
 
-![image](https://user-images.githubusercontent.com/36038743/151242123-8dee84e5-6276-4ac2-ba58-c09bff121419.png)
+![image](https://github.com/JonasBrinkmann-DE/files/blob/main/ld%20preview.png?raw=true)
 
 ## Videos
 
