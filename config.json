@@ -1,5 +1,4 @@
 {
-  "WebServer": {
-    "Port": 80
-  }
+  "port": 80,
+  "verbose": false
 }

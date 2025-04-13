@@ -6,9 +6,10 @@
 
 
 html {
-    text-align: center;
     display: table;
+    text-align: center;
     margin: auto;
+    width: 100%;
 }
 
 body {
@@ -18,9 +19,7 @@ body {
     vertical-align: middle;
     text-align: center;
     font-family: sans-serif;
-    margin: 0%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0;
 }
 
 footer {
@@ -28,17 +27,12 @@ footer {
     align-items: center;
     justify-content: end;
     background-color: #202020;
-    height: 3rem;
-    width: 100%;
-    margin-top: 9rem;
     color: white;
+    height: 3rem;
+    margin: 9rem 0 0 0;
     overflow: hidden;
+    width: 100%;
 }
-
-footer p {
-    margin: 0;
-}
-
 
 #header {
     margin-top: 1em;

@@ -2,12 +2,31 @@
   "name": "ld-toypad-emulator",
   "version": "1.4.1",
   "description": "Toy Pad Emulator for Lego Dimensions",
-  "repository": "https://github.com/Berny23/LD-ToyPad-Emulator",
-  "main": "index.js",
+  "repository": "https://github.com/JonasBrinkmann-DE/LD-ToyPad-Emulator",
+  "main": "server.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "ts-node src/server.ts"
   },
   "author": "Berny23",
+  "contributors": [
+    "JonasBrinkmann-DE",
+    "cort1237",
+    "VladimirKuletski",
+    "Luigimeansme",
+    "irrdkwhattoput",
+    "benlucaslaws",
+    "pablo5425",
+    "Lypsilonx",
+    "DaPiMan",
+    "amitzohar42",
+    "dverzolla",
+    "Iristallite",
+    "l3ennji",
+    "Florin9doi"
+  ],
   "license": "MIT",
   "dependencies": {
     "express": "^5.1.0",
@@ -15,7 +34,9 @@
     "socket.io": "4.8.1"
   },
   "devDependencies": {
-    "bufferutil": "4.0.9",
-    "utf-8-validate": "6.0.5"
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.14.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   }
 }

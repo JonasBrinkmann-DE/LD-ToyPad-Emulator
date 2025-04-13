@@ -170,6 +170,9 @@ $(".box").sortable({
 
 $(".box").disableSelection();
 
+$("#active-filter").on("change", function (e) {
+  applyFilters();
+});
 //When there is a change in the search bar
 $("#search-bar").on("input", function (e) {
   const value = $("#search-bar").val();
@@ -337,8 +340,9 @@ function createItemHtml(item) {
   const path = "images/" + itemData.id + ".png";
   const url = $(location).attr("href") + "/../" + path;
   const localId = itemCount++;
-  fileExists(url).then(function (exists) {
-    if (exists) {
+
+  fileExists(url).then(function (doesFileExist) {
+    if (doesFileExist) {
       content =
         "<img src=" +
         path +
@@ -346,9 +350,9 @@ function createItemHtml(item) {
         itemData.name +
         " style='width: 100%; height: 100%; object-fit: contain; pointer-events: none;'>";
 
-      $(`[data-local-id=${ta}']`).html(content);
+      $((`[data-local-id=${ta}']`)).html(content);
     }
-  });
+  }).catch(() => {});
 
   return (
     "<li class=item draggable=true data-name=" +
