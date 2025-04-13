@@ -1,5 +1,4 @@
 import * as Toytags from "./utils/toytags";
-import { RGBToHex } from "./utils/colorUtils";
 import Global from "./global";
 import WriteHook from "./hooks/writeHook";
 import ColorHook from "./hooks/colorHook";
@@ -12,15 +11,18 @@ import ColorAllHook from "./hooks/colorAllHook";
 import GetColorHook from "./hooks/getColorHook";
 import WakeHook from "./hooks/wakeHook";
 import Events from "./socket/events";
+import Config from "./config/config";
+
 const { Server } = require("socket.io");
 const ld = require("node-ld");
 const app = require("./app");
 const http = require("http");
 
+Config.Reload();
+
 Global.emulator = new ld.ToypadEmu();
 
 const server = http.createServer(app);
-const port = 80;
 Global.io = new Server(server);
 //Run in case there were any leftovers from a previous run.
 if (Toytags.initalize()) {
@@ -51,6 +53,6 @@ Global.io.on("connection", (socket) => {
   Events.initalize(socket);
 });
 
-server.listen(port, () => {
-  console.log(`Server is running on port ${port}!`);
+server.listen(Config.Port, () => {
+  console.log(`Server is running on port ${Config.Port}!`);
 });
