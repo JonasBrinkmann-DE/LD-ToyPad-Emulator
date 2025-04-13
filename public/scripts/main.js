@@ -41,7 +41,7 @@ setupFilterInputs();
 
 const socket = io();
 socket.emit("connectionStatus");
-socket.emit("syncToyPad");
+socket.emit("sync");
 
 const currentMousePos = { x: -1, y: -1 };
 $(document).mousemove((event) => {
@@ -119,7 +119,7 @@ $(".box").sortable({
     const id = $this.attr("id");
     console.log(id);
     if (id == "delete-token-left" || id == "delete-token-right") {
-      socket.emit("delete-token", ui.item.attr("data-uid"));
+      socket.emit("deleteToken", ui.item.attr("data-uid"));
       setTimeout(function () {
         refreshToyBox();
       }, 500);
@@ -200,7 +200,7 @@ socket.on("refreshTokens", function () {
   }, 1000);
 });
 
-socket.on("Fade One", function (e) {
+socket.on("fadeOne", function (e) {
   console.log("IO Recieved: Fade One");
   padindexs = [[2], [1, 4, 5], [3, 6, 7]];
   pad = e[0];
@@ -224,7 +224,7 @@ socket.on("Fade One", function (e) {
   });
 });
 
-socket.on("Fade All", function (e) {
+socket.on("fadeAll", function (e) {
   console.log("IO Recieved: Fade All");
   padindexs = [1, 2, 3, 4, 5, 6, 7];
   speed = e[0];
@@ -247,7 +247,7 @@ socket.on("Fade All", function (e) {
   });
 });
 
-socket.on("Color One", function (e) {
+socket.on("colorOne", function (e) {
   console.log("IO Recieved: Color One");
   padindexs = [[2], [1, 4, 5], [3, 6, 7]];
   pad = e[0];
@@ -261,7 +261,7 @@ socket.on("Color One", function (e) {
   });
 });
 
-socket.on("Color All", function (e) {
+socket.on("colorAll", function (e) {
   console.log("IO Recieved: Color All");
   padindexs = [1, 2, 3, 4, 5, 6, 7];
   padindexs.forEach((element) => {
@@ -277,7 +277,7 @@ socket.on("Color All", function (e) {
   });
 });
 
-socket.on("Connection True", function (e) {
+socket.on("connectionAffirmation", function (e) {
   console.log("Connection Success Recieved");
   $("#connectionHintPanel").remove();
 });
@@ -341,18 +341,20 @@ function createItemHtml(item) {
   const url = $(location).attr("href") + "/../" + path;
   const localId = itemCount++;
 
-  fileExists(url).then(function (doesFileExist) {
-    if (doesFileExist) {
-      content =
-        "<img src=" +
-        path +
-        " alt=" +
-        itemData.name +
-        " style='width: 100%; height: 100%; object-fit: contain; pointer-events: none;'>";
+  fileExists(url)
+    .then(function (doesFileExist) {
+      if (doesFileExist) {
+        content =
+          "<img src=" +
+          path +
+          " alt=" +
+          itemData.name +
+          " style='width: 100%; height: 100%; object-fit: contain; pointer-events: none;'>";
 
-      $((`[data-local-id=${ta}']`)).html(content);
-    }
-  }).catch(() => {});
+        $(`[data-local-id=${ta}']`).html(content);
+      }
+    })
+    .catch(() => {});
 
   return (
     "<li class=item draggable=true data-name=" +
@@ -598,7 +600,7 @@ $("#character-select").submit(function (e) {
     while (now < end) {
       now = Date.now();
     }
-    socket.emit("syncToyPad");
+    socket.emit("sync");
     $("#character-select")[0].reset();
   });
 });
@@ -620,13 +622,13 @@ $("#vehicle-select").submit(function (e) {
     while (now < end) {
       now = Date.now();
     }
-    socket.emit("syncToyPad");
+    socket.emit("sync");
     $("#vehicle-select")[0].reset();
   });
 });
 
 $("#sync").click(function () {
-  socket.emit("syncToyPad");
+  socket.emit("sync");
 });
 
 //**Customize Token**

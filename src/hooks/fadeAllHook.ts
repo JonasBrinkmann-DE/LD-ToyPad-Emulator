@@ -25,7 +25,7 @@ class FadeAllHook implements IHook {
       req.payload[17]
     );
 
-    Global.io.emit("Fade All", [
+    Global.io.emit(IOEvents.FadeAll, [
       top_pad_speed,
       top_pad_cycles,
       top_pad_color,
@@ -36,6 +36,7 @@ class FadeAllHook implements IHook {
       right_pad_cycles,
       right_pad_color,
     ]);
+    //TODO: Complete implementation
     // setTimeout(function(){io.emit("Fade All",
     // 					[top_pad_speed, top_pad_cycles, 'white',
     // 					 left_pad_speed, left_pad_cycles, 'white',

@@ -26,7 +26,7 @@ const server = http.createServer(app);
 Global.io = new Server(server);
 //Run in case there were any leftovers from a previous run.
 if (Toytags.initalize()) {
-  Global.io.emit("refreshTokens");
+  Global.io.emit(IOEvents.RefreshTokens);
 }
 
 ///Implemented///
@@ -45,9 +45,6 @@ Global.emulator.hook(Global.emulator.CMD_FLSAL, FlashAllHook.handle);
 ///DEBUG PURPOSES///
 Global.emulator.hook(Global.emulator.CMD_GETCOL, GetColorHook.handle);
 
-//This is called when a token needs to be removed from the pad.
-
-//**IO CALLS**//
 //This setups the IO connection between index.js and index.html.
 Global.io.on("connection", (socket) => {
   Events.initalize(socket);

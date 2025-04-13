@@ -20,7 +20,7 @@ class ColorAllHook implements IHook {
       req.payload[11]
     );
 
-    Global.io.emit("Color All", [
+    Global.io.emit(IOEvents.ColorAll, [
       top_pad_color,
       left_pad_color,
       right_pad_color,

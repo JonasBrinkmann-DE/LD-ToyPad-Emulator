@@ -9,7 +9,7 @@ class Events {
   }
   //TODO: Replace with express request
   initalizeDeleteToken(socket: any) {
-    socket.on("deleteToken", (uid) => {
+    socket.on(IOEvents.DeleteToken, (uid) => {
       console.log("IO Recieved: Deleting entry " + uid + " from JSON");
 
       const successfull = Toytags.deleteEntry("uid", uid);
@@ -19,19 +19,19 @@ class Events {
       } else {
         console.log("Token not found");
       }
-      Global.io.emit("refreshTokens");
+      Global.io.emit(IOEvents.RefreshTokens);
     });
   }
   //TODO: Replace with express request
   initalizeConnectionStatus(socket: any) {
-    socket.on("connectionStatus", () => {
+    socket.on(IOEvents.ConnectionStatus, () => {
       if (Global.wasConnectionEstablished) {
-        Global.io.emit("Connection True");
+        Global.io.emit(IOEvents.ConnectionAffirmation);
       }
     });
   }
   initializeSync(socket: any) {
-    socket.on("syncToyPad", (pad) => {
+    socket.on(IOEvents.Sync, (pad) => {
       console.log("[SOCKET] Started syncing tags with client...");
       Toytags.initalize();
       for (let i = 1; i <= 7; i++) {
@@ -40,7 +40,7 @@ class Events {
           Toytags.updateData(uid, "index", i);
         }
       }
-      Global.io.emit("refreshTokens");
+      Global.io.emit(IOEvents.RefreshTokens);
       console.log("[SOCKET] Successfully synced tags with client!");
     });
   }

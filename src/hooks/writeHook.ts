@@ -23,7 +23,7 @@ class WriteHook implements IHook {
       Toytags.updateData(uid, "vehicleUpgradesP23", data.readUInt32LE(0));
     else if (page == 25 || page == 37) {
       Toytags.updateData(uid, "vehicleUpgradesP25", data.readUInt32LE(0));
-      Global.io.emit("refreshTokens"); //Refreshes the html's tag gui.
+      Global.io.emit(IOEvents.RefreshTokens); //Refreshes the html's tag gui.
     }
     res.payload = Buffer.from([0x00]);
     const token = Global.emulator._tokens.find((t) => t.index == ind);

@@ -6,9 +6,9 @@ class Config {
 
   static Reload() {
     const rawData: string = fs.readFileSync(configPath, "utf8");
-    const data = JSON.parse(rawData);
+    const data: IConfig = JSON.parse(rawData);
 
-    this.Port = data.Port || 80;
+    this.Port = data.port || 80;
   }
 }
 

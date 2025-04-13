@@ -8,7 +8,12 @@ class FadeHook implements IHook {
     const pad_cycles = req.payload[2];
     const pad_color = RGBToHex(req.payload[3], req.payload[4], req.payload[5]);
 
-    Global.io.emit("Fade One", [pad_number, pad_speed, pad_cycles, pad_color]);
+    Global.io.emit(IOEvents.FadeOne, [
+      pad_number,
+      pad_speed,
+      pad_cycles,
+      pad_color,
+    ]);
   }
 }
 
