@@ -1,5 +1,9 @@
 //TODO: Locate keystone (too many possible values to find by hand. need help here)
-export function RGBToHex(r, g, b) {
+export function RGBToHex(
+  r: number | string,
+  g: number | string,
+  b: number | string
+) {
   r = r.toString(16);
   g = g.toString(16);
   b = b.toString(16);

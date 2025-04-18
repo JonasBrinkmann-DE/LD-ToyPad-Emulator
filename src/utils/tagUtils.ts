@@ -1,6 +1,10 @@
 import Global from "../global";
 
-export function createVehicle(id, upgrades, uid: string) {
+export function createVehicle(
+  id: number,
+  upgrades: [number, number],
+  uid: string
+) {
   upgrades = upgrades || [0, 0];
   const token: any = Buffer.alloc(180);
 
@@ -13,15 +17,15 @@ export function createVehicle(id, upgrades, uid: string) {
   return token;
 }
 
-export function createCharacter(id, uid: string) {
+export function createCharacter(id: number, uid: string) {
   const token: any = Buffer.alloc(180);
   token.uid = uid;
   token.id = id;
   return token;
 }
 
-export function getUIDAtPad(index) {
-  const token = Global.emulator._tokens.find((t) => t.index == index);
+export function getUIDAtPad(index: number) {
+  const token = Global.emulator._tokens.find((t: any) => t.index == index);
   if (token != null) return token.uid;
   else return -1;
 }

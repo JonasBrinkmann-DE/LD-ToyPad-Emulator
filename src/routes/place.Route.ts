@@ -24,9 +24,13 @@ router.post("/", (req: Request, res: Response) => {
     Toytags.updatePadIndex(character.uid, req.body.index);
     res.status(StatusCodes.CREATED);
   } else {
+    if (!entry.upgrades) {
+      return;
+    }
+
     const vehicle = createVehicle(
       req.body.id,
-      [entry.upgrades?.page23, entry.upgrades?.page25],
+      [entry.upgrades.page23, entry.upgrades.page25],
       req.body.uid
     );
     Global.emulator.tp.place(

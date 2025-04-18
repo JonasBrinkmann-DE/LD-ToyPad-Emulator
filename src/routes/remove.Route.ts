@@ -8,7 +8,7 @@ router.delete("/", (req: Request, res: Response) => {
   // console.log('DEBUG: pad-from-token: ', tp._tokens.filter(v => v.index == request.body.index)[0].pad);
   Global.emulator.tp.remove(req.body.index);
   console.log("Item removed: " + req.body.index);
-  Toytags.updatePadIndex(req.body.uid, "-1");
+  Toytags.updatePadIndex(req.body.uid, -1);
   res.send(true);
 });
 export { router as removeRouter };

@@ -12,6 +12,7 @@ import GetColorHook from "./hooks/getColorHook";
 import WakeHook from "./hooks/wakeHook";
 import Events from "./socket/events";
 import Config from "./config/config";
+import { Socket } from "socket.io";
 
 const { Server } = require("socket.io");
 const ld = require("node-ld");
@@ -48,7 +49,7 @@ Global.emulator.hook(Global.emulator.CMD_FLSAL, FlashAllHook.handle);
 Global.emulator.hook(Global.emulator.CMD_GETCOL, GetColorHook.handle);
 
 //This setups the IO connection between index.js and index.html.
-Global.socket.on("connection", (socket) => {
+Global.socket.on("connection", (socket: Socket) => {
   Events.initalize(socket);
 });
 

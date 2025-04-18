@@ -9,7 +9,7 @@ class Events {
   }
   //TODO: Replace with express request
   initalizeDeleteToken(socket: any) {
-    socket.on(IOEvents.DeleteToken, (uid) => {
+    socket.on(IOEvents.DeleteToken, (uid: string) => {
       console.log("IO Recieved: Deleting entry " + uid + " from JSON");
 
       const successfull = Toytags.deleteEntry("uid", uid);
@@ -31,7 +31,7 @@ class Events {
     });
   }
   initializeSync(socket: any) {
-    socket.on(IOEvents.Sync, (pad) => {
+    socket.on(IOEvents.Sync, (pad: number) => {
       console.log("[SOCKET] Started syncing tags with client...");
       Toytags.initalize();
       for (let i = 1; i <= 7; i++) {
