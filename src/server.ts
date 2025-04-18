@@ -13,9 +13,9 @@ import WakeHook from "./hooks/wakeHook";
 import Events from "./socket/events";
 import Config from "./config/config";
 import { Socket } from "socket.io";
+import ld from "node-ld";
 
 const { Server } = require("socket.io");
-const ld = require("node-ld");
 const app = require("./app");
 const http = require("http");
 
@@ -23,7 +23,7 @@ Config.Reload();
 
 const port = Config.Data.port;
 
-Global.emulator = new ld.ToypadEmu();
+Global.emulator = new ld.ToyPadEmu();
 
 const server = http.createServer(app);
 Global.socket = new Server(server);
