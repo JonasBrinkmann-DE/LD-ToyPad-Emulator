@@ -8,6 +8,7 @@ enum IOEvents {
   ColorAll = "colorAll",
   ColorOne = "colorOne",
   FadeAll = "fadeAll",
+  Flash = "flash",
   FadeOne = "fadeOne",
   ConnectionAffirmation = "connectionAffirmation",
 }

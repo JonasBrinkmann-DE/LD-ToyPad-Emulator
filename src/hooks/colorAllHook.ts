@@ -3,7 +3,7 @@ import { RGBToHex } from "../utils/colorUtils";
 
 class ColorAllHook implements IHook {
   handle(req: any, res: any): void {
-    console.log("    => CMD_COLAL");
+    console.log("[HOOK] CMD_COLAL");
     const top_pad_color = RGBToHex(
       req.payload[1],
       req.payload[2],
@@ -20,7 +20,7 @@ class ColorAllHook implements IHook {
       req.payload[11]
     );
 
-    Global.io.emit(IOEvents.ColorAll, [
+    Global.socket.emit(IOEvents.ColorAll, [
       top_pad_color,
       left_pad_color,
       right_pad_color,

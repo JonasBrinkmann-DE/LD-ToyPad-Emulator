@@ -19,14 +19,14 @@ class Events {
       } else {
         console.log("Token not found");
       }
-      Global.io.emit(IOEvents.RefreshTokens);
+      Global.socket.emit(IOEvents.RefreshTokens);
     });
   }
   //TODO: Replace with express request
   initalizeConnectionStatus(socket: any) {
     socket.on(IOEvents.ConnectionStatus, () => {
       if (Global.wasConnectionEstablished) {
-        Global.io.emit(IOEvents.ConnectionAffirmation);
+        Global.socket.emit(IOEvents.ConnectionAffirmation);
       }
     });
   }
@@ -37,10 +37,10 @@ class Events {
       for (let i = 1; i <= 7; i++) {
         const uid = getUIDAtPad(i);
         if (uid != -1) {
-          Toytags.updateData(uid, "index", i);
+          Toytags.storeData(uid, "index", i);
         }
       }
-      Global.io.emit(IOEvents.RefreshTokens);
+      Global.socket.emit(IOEvents.RefreshTokens);
       console.log("[SOCKET] Successfully synced tags with client!");
     });
   }

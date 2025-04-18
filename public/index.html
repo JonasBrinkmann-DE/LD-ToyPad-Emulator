@@ -23,7 +23,35 @@
   </head>
 
   <body>
-    <div id="tag-creation-popup" class="overlay"></div>
+    <div id="darkness"></div>
+    <div id="tag-creation-dialog" class="overlay">
+      <p>Category</p>
+      <div class="choice" id="tag-type-selector">
+        <button class="active-choice">Any</button>
+        <button>Character</button>
+        <button>Vehicle</button>
+        <button>Gadget</button>
+      </div>
+      <p>Name</p>
+      <select>
+        <option>N1</option>
+        <option>N2</option>
+        <option>N3</option>
+        <option>N4</option>
+        <option>N5</option>
+        <option>X1</option>
+        <option>X2</option>
+        <option>X3</option>
+        <option>X4</option>
+        <option>X5</option>
+        <option>A1</option>
+        <option>A2</option>
+        <option>A3</option>
+        <option>A4</option>
+        <option>A5</option>
+      </select>
+      <input type="text" />
+    </div>
     <main id="main">
       <h1 id="header">Toy Pad Emulator for Lego Dimensions</h1>
       <p id="warnings" class="container">
@@ -147,37 +175,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div id="tag-creation-container">
-        <form id="character-select" class="container" hidden>
-          <label>
-            <input
-              list="character-list"
-              id="character-name"
-              onfocus="this.value=''"
-              onchange="this.blur();"
-              placeholder="Select a character"
-            />
-            <datalist id="character-list"></datalist>
-          </label>
-          <br />
-          <button type="submit">Create Character</button>
-        </form>
-
-        <form id="vehicle-select" class="container" hidden>
-          <label>
-            <input
-              list="vehicle-list"
-              id="vehicle-name"
-              onfocus="this.value=''"
-              onchange="this.blur();"
-              placeholder="Select a vehicle"
-            />
-            <datalist id="vehicle-list"></datalist>
-          </label>
-          <br />
-          <button type="submit">Create Vehicle</button>
-        </form>
       </div>
     </main>
     <footer>

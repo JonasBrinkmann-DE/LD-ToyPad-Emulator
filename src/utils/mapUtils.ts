@@ -1,9 +1,15 @@
-import * as Tokenmap from "../utils/tokenmap.js";
-import * as Charactermap from "../utils/charactermap.js";
-
+import * as Vehiclemap from "./maps/vehiclemap";
+import * as Charactermap from "./maps/charactermap";
+import * as Gadgetmap from "./maps/gadgetmap";
+//TODO: Find a way to not use thie function
 export function getNameFromID(id) {
   if (id < 1000) {
-    return Charactermap.getCharacterNameFromID(id);
+    let data = Gadgetmap.getEntry("id", id); //Seachring Gadgetmap first because it's smaller
+
+    if (!data) {
+      data = Charactermap.getEntry("id", id);
+    }
+    return data.name;
   }
-  return Tokenmap.getTokenNameFromID(id);
+  return Vehiclemap.getEntry("id", id);
 }

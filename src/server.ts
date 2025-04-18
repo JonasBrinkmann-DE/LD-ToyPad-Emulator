@@ -20,13 +20,15 @@ const http = require("http");
 
 Config.Reload();
 
+const port = Config.Data.port;
+
 Global.emulator = new ld.ToypadEmu();
 
 const server = http.createServer(app);
-Global.io = new Server(server);
+Global.socket = new Server(server);
 //Run in case there were any leftovers from a previous run.
 if (Toytags.initalize()) {
-  Global.io.emit(IOEvents.RefreshTokens);
+  Global.socket.emit(IOEvents.RefreshTokens);
 }
 
 ///Implemented///
@@ -37,7 +39,7 @@ Global.emulator.hook(Global.emulator.CMD_FADAL, FadeAllHook.handle);
 Global.emulator.hook(Global.emulator.CMD_COLALL, ColorAllHook.handle);
 Global.emulator.hook(Global.emulator.CMD_WAKE, WakeHook.handle);
 
-///NOT IMPLEMENTED///
+///NOT IMPLEMENTED/// TODO: Implement
 Global.emulator.hook(Global.emulator.CMD_FLASH, FlashHook.handle);
 Global.emulator.hook(Global.emulator.CMD_FADRD, FadrdHook.handle);
 Global.emulator.hook(Global.emulator.CMD_FLSAL, FlashAllHook.handle);
@@ -46,10 +48,10 @@ Global.emulator.hook(Global.emulator.CMD_FLSAL, FlashAllHook.handle);
 Global.emulator.hook(Global.emulator.CMD_GETCOL, GetColorHook.handle);
 
 //This setups the IO connection between index.js and index.html.
-Global.io.on("connection", (socket) => {
+Global.socket.on("connection", (socket) => {
   Events.initalize(socket);
 });
 
-server.listen(Config.Port, () => {
-  console.log(`Server is running on port ${Config.Port}!`);
+server.listen(port, () => {
+  console.log(`Server is running on port ${port}!`);
 });

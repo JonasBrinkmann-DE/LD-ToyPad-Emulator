@@ -1,37 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Lexend:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('components.css');
 @import url('utilities.css');
 @import url('variables.css');
 @import url('responsive/mobile.css');
 @import url('responsive/medium.css');
-
+@import url('dialogs/tagCreation.css');
 
 html {
     display: table;
-    text-align: center;
     margin: auto;
     width: 100%;
+    text-align: center;
 }
 
 body {
     display: flex;
-    align-items: center;
     flex-direction: column;
+    align-items: center;
+    margin: 0;
     vertical-align: middle;
     text-align: center;
-    font-family: sans-serif;
-    margin: 0;
+    font-family: 'Noto Sans', sans-serif, Arial;
+
 }
 
 footer {
     display: flex;
     align-items: center;
     justify-content: end;
-    background-color: #202020;
-    color: white;
-    height: 3rem;
     margin: 9rem 0 0 0;
-    overflow: hidden;
+    background-color: var(--dark-color-4);
     width: 100%;
+    height: 3rem;
 }
 
 #header {
@@ -40,46 +40,40 @@ footer {
 
 #sync {
     margin-top: 0.5em;
-    background-color: #8e99f3;
+    background-color: var(--special-color-2);
+    color: var(--light-color-5);
+    font-weight: light;
 }
 
 #sync:hover,
 #sync:active {
-    background-color: #5c6bc0;
+    filter: brightness(87%);
 }
 
 .container {
-    background-color: #efefef;
-    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
-    padding: 1em;
-    border-radius: 0.5rem;
-    display: inline-flexbox;
     position: relative;
     margin: 1.5em auto;
-}
-
-
-#tag-creation-container {
-    display: inline-flex;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+    background-color: #efefef;
+    padding: 1em;
 }
 
 #character-select {
     margin-right: 2em;
 }
 
-
 .item {
-    width: 7em;
-    height: 7em;
-    background-color: #ffa726;
+    box-sizing: border-box;
+    position: relative;
     border: 1px solid transparent;
     border-radius: 0.5rem;
-    color: #000;
-    box-sizing: border-box;
-    cursor: pointer;
     box-shadow: rgb(0 0 0 / 20%) 0 4px 12px;
+    background-color: #ffa726;
     cursor: grab;
-    position: relative;
+    width: 7em;
+    height: 7em;
+    color: #000;
 }
 
 .item.filtered {
@@ -96,8 +90,8 @@ footer {
 .item.filtered:hover,
 .item.filtered:focus,
 .item.filtered:active {
-    background-color: #c77800;
     transition: background-color 250ms;
+    background-color: #c77800;
 }
 
 .item[data-type="vehicle"] {
@@ -128,52 +122,44 @@ footer {
 }
 
 #warnings {
-    color: #e8eaf6;
-    background-color: #26418f;
+    background-color: var(--special-color-1);
     padding: 1em;
-    line-height: 2em;
     width: fit-content;
-}
-
-#status {
-    color: #e8eaf6;
-    background-color: #b61827;
-    padding: 1em;
+    line-height: 2em;
+    color: var(--light-color-2);
 }
 
 #token-box {
-    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 0%), 0 6px 20px 0 rgb(0 0 0 / 0%);
     flex-direction: row;
     justify-content: center;
     margin: 0;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 0%), 0 6px 20px 0 rgb(0 0 0 / 0%);
 }
 
 .box.box-edit {
-    border: solid 3px transparent;
-    margin: 0;
-    list-style-type: none;
-    padding: 10px;
-    transition: background-color 0.25s ease-out;
-    border-radius: 0.5rem;
-    height: 8em;
-    width: 8em;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.25s ease-out;
+    margin: 0;
+    border: solid 3px transparent;
     border-radius: 0.5rem;
     cursor: default;
     padding: 10;
+    width: 8em;
+    height: 8em;
+    list-style-type: none;
 }
 
 .box-edit>#delete-token {
-    background-color: #ef5350;
     box-shadow: none;
+    background-color: #ef5350;
     cursor: default;
 }
 
 .box-edit>#colorToken {
-    background-color: #d450ef;
     box-shadow: none;
+    background-color: #d450ef;
     cursor: default;
 }
 
@@ -191,8 +177,6 @@ footer {
     background-color: rgb(218, 52, 52) !important;
 }
 
-
-
 #layout-controller {
     display: flex;
     flex-direction: row;
@@ -200,14 +184,14 @@ footer {
 }
 
 footer button {
-    background-color: white;
-    padding: 0 !important;
-    margin: 0 8px 0 0;
-    width: 32px;
-    height: 32px;
     display: grid;
     align-items: center;
     justify-content: center;
+    margin: 0 8px 0 0;
+    background-color: var(--light-color-1);
+    padding: 0 !important;
+    width: 32px;
+    height: 32px;
 }
 
 footer button img {
@@ -215,5 +199,15 @@ footer button img {
 }
 
 footer button:hover {
-    background-color: #dbdbdb;
+    background-color: var(--light-color-5);
+}
+
+#darkness {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 6;
+    background-color: #0000008a;
 }

@@ -4,7 +4,7 @@
     padding: 0;
     border-radius: 0.5rem;
     margin-right: 0.5em;
-    background-color: #bdbdbd;
+    background-color: var(--light-color-5);
 
     overflow-y: scroll;
     position: relative;
@@ -112,7 +112,7 @@
 }
 
 #filter-container select {
-    background-color: white;
+    background-color: var(--light-color-1);
     height: 100%;
     border: none;
     padding-right: 2rem;
@@ -121,7 +121,19 @@
     border-radius: 0.5rem;
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
-    border-left: 1px solid #d6d2d2;
+}
+
+.flex-container {
+    flex-direction: column;
+    margin: auto;
+    background-color: var(--light-color-3);
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+    padding: 1em;
+    display: flex;
+    min-height: 100px;
+    border-radius: 0.5rem;
+    position: relative;
+    min-width: 80vw;
 }
 
 #action-container button {
@@ -134,4 +146,9 @@
 
 #action-container {
     margin-left: auto;
+}
+
+#search-bar {
+    display: block;
+    margin: auto;
 }

@@ -1,0 +1,54 @@
+#tag-creation-dialog {
+    justify-content: baseline;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 6;
+    border-radius: 1.8rem;
+    background-color: var(--light-color-3);
+    box-shadow: 1px 1px 9px rgb(61, 61, 61);
+    width: 80%;
+    max-width: 800px;
+    height: 30rem;
+}
+
+#tag-creation-dialog p {
+    text-align: left;
+    margin-left: 1rem;
+    margin-top: 2rem;
+    font-weight: 700;
+    color: var(--dark-color-2);
+}
+
+#tag-creation-dialog select {
+    background-color: white;
+    border: 1px solid var(--light-color-5);
+    height: calc(2.4rem);
+    margin: 0;
+    padding-top: 3px;
+    width: 12.3rem;
+    border-radius: 0.6rem;
+}
+
+#tag-creation-dialog select {
+    padding-left: 0.6rem;
+    outline: none;
+    border: 1px solid var(--light-color-5);
+}
+
+#tag-creation-dialog input {
+    border: 1px solid var(--light-color-5);
+    text-align: left;
+    padding-left: 1.25rem;
+    font-size: 1rem;
+}
+
+#tag-creation-dialog input:focus {
+    border: 1px solid var(--light-color-5);
+    outline: none;
+}
+
+#tag-type-selector {
+    margin-left: 1.4rem;
+}

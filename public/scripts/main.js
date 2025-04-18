@@ -1,6 +1,6 @@
 const characters = getCharacterMap();
 const vehicles = getTokenMap();
-//TODO: Display tags even if their images are not loaded yet
+//TODO: First load all tokens, and then load images async
 function getCharacterMap() {
   let result = null;
 
@@ -192,6 +192,9 @@ $("#search-bar").on("input", function (e) {
 
   applyFilters();
 });
+//TODO: Directly point to element
+const padGroupMapping = [[2], [1, 4, 5], [3, 6, 7]];
+
 //**IO Functions**
 socket.on("refreshTokens", function () {
   console.log("IO Recieved: Refresh Tokens");
@@ -202,13 +205,12 @@ socket.on("refreshTokens", function () {
 
 socket.on("fadeOne", function (e) {
   console.log("IO Recieved: Fade One");
-  padindexs = [[2], [1, 4, 5], [3, 6, 7]];
   pad = e[0];
   speed = e[1];
   cycles = e[2];
   color = e[3] + "80";
   console.log("FADE ONE: ", e);
-  pads = padindexs[pad - 1];
+  pads = padGroupMapping[pad - 1];
   pads.forEach((element) => {
     pad = document.getElementById("toypad" + element);
 
@@ -226,25 +228,36 @@ socket.on("fadeOne", function (e) {
 
 socket.on("fadeAll", function (e) {
   console.log("IO Recieved: Fade All");
-  padindexs = [1, 2, 3, 4, 5, 6, 7];
   speed = e[0];
   cycles = e[1];
-  padindexs.forEach((element) => {
-    pad = document.getElementById("toypad" + element);
-    if (element == 2) var color = e[2];
-    else if (element == 1 || element == 4 || element == 5) var color = e[5];
-    else if (element == 3 || element == 6 || element == 7) var color = e[8];
-    console.log("#toypad" + element + " Color: " + color);
-    color = color + "80";
-    $("#toypad" + element)
-      .animate()
-      .css({ backgroundColor: color });
+
+  for (let i = 1; i <= 7; i++) {
+    const pad = document.getElementById(`toypad${i}}`);
+
+    if (!pad) continue;
+
+    let color;
+    switch (pad) {
+      case 2:
+        color = e[2];
+        break;
+      case 1:
+      case 4:
+      case 5:
+        color = e[5];
+        break;
+      default:
+        color = e[8];
+    }
+    color += "80";
+
+    //TODO: This does not fade at all
+    const oldColor = pad.style.backgroundColor;
+    pad.style.backgroundColor = color;
     setTimeout(() => {
-      $("#toypad" + element)
-        .animate()
-        .css({ backgroundColor: pad.color });
+      pad.style.backgroundColor = oldColor;
     }, speed * 100);
-  });
+  }
 });
 
 socket.on("colorOne", function (e) {
@@ -297,6 +310,10 @@ function filterByName(jsonObject, name) {
 }
 
 //Remove all token items from the lists and reread toytags.json and repopulate the lists.
+
+//TODO: Inorder to support binary version of toytags.json,
+// the ressource has to be downloaded from a get request that converts the binary into json (once)
+//toytags - GET
 function refreshToyBox() {
   //Remove All Current Tokens
   var boxes = document.querySelectorAll(".box");

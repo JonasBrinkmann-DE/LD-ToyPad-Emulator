@@ -21,18 +21,6 @@
     width: fit-content;
 }
 
-.flex-container {
-    flex-direction: column;
-    margin: auto;
-    background-color: #efefef;
-    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
-    padding: 1em;
-    display: flex;
-    min-height: 100px;
-    border-radius: 0.5rem;
-    position: relative;
-    min-width: 80vw;
-}
 
 #connectionHintPanel {
     position: absolute;

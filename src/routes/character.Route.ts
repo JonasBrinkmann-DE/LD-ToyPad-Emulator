@@ -3,24 +3,22 @@ import Global from "../global";
 import { createCharacter } from "../utils/tagUtils";
 import { getNameFromID } from "../utils/mapUtils";
 import * as Toytags from "../utils/toytags";
+import { getEntry } from "../utils/maps/charactermap";
 
 const router = Router();
-const tp = Global.getInstance().tp;
 
 router.post("/", (req: Request, res: Response) => {
-  console.log("Creating character: " + req.body.id);
-  const uid = tp.randomUID();
-  const character = createCharacter(req.body.id, uid);
-  const name = getNameFromID(req.body.id);
+  const id = req.body.id;
+  const uid = Global.emulator.randomUID();
+  const character = createCharacter(id, uid);
+  const name = getEntry("id", id).name;
 
-  const entry = {
+  const entry: IToytag = {
     name: name,
     id: character.id,
     uid: character.uid,
-    index: "-1",
-    type: "character",
-    vehicleUpgradesP23: 0,
-    vehicleUpgradesP25: 0,
+    index: -1,
+    type: Tagtype.Character,
   };
 
   Toytags.addEntry(entry);

@@ -4,126 +4,117 @@ const path = require("path");
 const toytagsPath = path.join(__dirname, "server/json/", "toytags.json");
 
 export function initalize() {
-  const data = fs.readFileSync(toytagsPath, "utf8");
-  const databases = JSON.parse(data);
-  databases.forEach((db) => {
-    db.index = "-1"; //TODO: PadIndex should be stored as indexes an not string. This is a both CLIENT and SERVER side change
+  const database = get();
+  database.forEach((entry) => {
+    entry.index = "-1"; //TODO: PadIndex should be stored as indexes an not string. This is a both CLIENT and SERVER side change
   });
 
-  try {
-    fs.writeFileSync(toytagsPath, JSON.stringify(databases, null, 4), "utf8");
-    return true;
-  } catch (err) {
-    console.error("Failed to write initalized data to toytags.json", err);
+  const result = write(database);
+
+  if (!result) {
+    console.error("[Toytags] Initialization failed, could not write to file!");
     return false;
   }
+  return true;
 }
 
 export function updatePadIndex(uid, index) {
-  const data = fs.readFileSync(toytagsPath, "utf8");
-  const database = JSON.parse(data);
+  const database = getEntry("uid", uid);
 
-  for (const selector in database) {
-    if (database[selector].uid === uid) {
-      database[selector].index = index;
-      break;
-    }
+  if (!database) {
+    console.warn("[Toytags] Could not find tag when trying to update index!");
+    return;
   }
-  fs.writeFileSync(toytagsPath, JSON.stringify(database, null, 4), (err) => {
-    if (err) {
-      console.warn(`Failed to update pad index of [${uid}]!`);
-      return;
-    }
-    console.log(`Successfully updated pad index of [${uid}]!`);
-  });
-}
 
-export function addEntry(entry) {
-  if (typeof entry !== "object") return;
+  database.index = index;
 
-  const data = fs.readFileSync(toytagsPath, "utf8");
-  const tags = JSON.parse(data);
-  tags.push(entry);
-
-  try {
-    fs.writeFileSync(toytagsPath, JSON.stringify(tags, null, 4), "utf8");
-    return true;
-  } catch {
+  const result = write(database);
+  if (!result) {
+    console.error(
+      "[Toytags] Updating pad index failed, could not write to file!"
+    );
     return false;
   }
+  return true;
+}
+
+export function addEntry(entry: object) {
+  const tags = get();
+  tags.push(entry);
+
+  const result = write(tags);
+  if (!result) {
+    console.error("[Toytags] Adding entry failed, could not write to file!");
+    return false;
+  }
+  return true;
 }
 export function deleteEntry(key, value) {
-  const tags = getJSON();
+  const tags = get();
 
   for (let i = 0; i < tags.length; i++) {
     if (tags[i][key] == value) {
       tags.splice(i, 1);
 
-      fs.writeFileSync(toytagsPath, JSON.stringify(tags, null, 4), "utf8");
+      const result = write(tags);
+      if (!result) {
+        console.error(
+          "[Toytags] Removing entry failed, could not write to file!"
+        );
+        return false;
+      }
       return true;
     }
   }
   return false;
 }
 
-export function getFromUID(uid) {
-  const data = fs.readFileSync(toytagsPath, "utf8");
-  const database = JSON.parse(data);
+export function storeDataBundle(uid, bundle: Array<any>) {
+  const database = get();
+
+  for (const select in database) {
+    if (database[select].uid === uid) {
+      bundle.forEach((pack) => {
+        database[select][pack.key] = pack.value;
+      });
+      write(database);
+      return;
+    }
+  }
+}
+export function storeData(uid, key, value) {
+  const database = get();
+
+  let wasChangeMade = false;
+  for (const select in database) {
+    if (database[select].uid === uid) {
+      database[select][key] = value;
+      write(database);
+      return;
+    }
+  }
+}
+
+export function getEntry(key: keyof IToytag, value): IToytag | undefined {
+  const database = get();
 
   for (const key in database) {
     const entry = database[key];
-
-    if (entry.uid === uid) {
+    if (entry[key] === value) {
       return entry;
     }
   }
-  return null;
+  return undefined;
 }
-
-export function getUIDFromIndex(index) {
-  const database = getJSON();
-
-  for (const key in database) {
-    const entry = database[key];
-    if (entry.index === index) {
-      return entry.uid;
-    }
-  }
-  return "N/A";
-}
-export function updateData(uid, datatype, data) {
-  const database = getJSON();
-
-  let wasChangeMade = false;
-  for (const key in database) {
-    if (database[key].index === uid) {
-      wasChangeMade = true;
-      database[key][datatype] = data;
-      break;
-    }
-  }
-
-  if (!wasChangeMade) return;
-
-  fs.writeFileSync(toytagsPath, JSON.stringify(database, null, 4), (err) => {
-    if (err) {
-      console.warn(
-        `An error occurred while trying to update ${path.basename(
-          toytagsPath
-        )}!`
-      );
-      return false;
-    }
-
-    console.log(
-      `Successfully updated [${datatype}] of entry [${uid}] to [${data}]!`
-    );
-
-    return true;
-  });
-}
-
-function getJSON() {
+function get() {
   const data = fs.readFileSync(toytagsPath, "utf8");
   return JSON.parse(data);
+}
+function write(json: object) {
+  return fs.writeFileSync(toytagsPath, JSON.stringify(json, null, 4), (err) => {
+    if (err) {
+      return false;
+    }
+    return true;
+  });
 }

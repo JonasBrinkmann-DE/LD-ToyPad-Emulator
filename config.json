@@ -1,4 +1,17 @@
 {
   "port": 80,
-  "verbose": false
+  "verbose": false,
+  "charactermap": {
+    "keepInMemory": true
+  },
+  "vehiclemap": {
+    "keepInMemory": true
+  },
+  "gadgetmap": {
+    "keepInMemory": true
+  },
+  "toytags": {
+    "keepInMemory": true,
+    "useBinary": false
+  }
 }

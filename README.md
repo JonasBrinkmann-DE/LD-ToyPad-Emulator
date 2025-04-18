@@ -69,7 +69,7 @@ Please contribute to this fork by opening issues.
    echo "usb_f_rndis" | sudo tee -a /etc/modules
 
    git config pull.rebase false
-   git clone https://github.com/Berny23/LD-ToyPad-Emulator.git
+   git clone https://github.com/JonasBrinkmann-DE/LD-ToyPad-Emulator.git
    cd LD-ToyPad-Emulator
 
    printf '\necho "usbip-vudc.0" > UDC\nusbipd -D --device\nsleep 2;\nusbip attach -r debian -b usbip-vudc.0\nchmod a+rw /dev/hidg0' >> usb_setup_script.sh
