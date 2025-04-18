@@ -3,7 +3,10 @@ import Config from "../../config/config";
 const fs = require("fs");
 const path = require("path");
 
-const characterMapPath = path.join(__dirname, "server/json/charactermap.json");
+const characterMapPath = path.join(
+  __dirname,
+  "../../public/json/charactermap.json"
+);
 
 let cached: ICharacter[] | undefined;
 

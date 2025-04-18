@@ -2,7 +2,7 @@ import Config from "../../config/config";
 
 const fs = require("fs");
 const path = require("path");
-const gadgetMapPath = path.join(__dirname, "server/json/gadgetmap.json");
+const gadgetMapPath = path.join(__dirname, "../../public/json/gadgetmap.json");
 
 let cached: IGadget[] | undefined;
 

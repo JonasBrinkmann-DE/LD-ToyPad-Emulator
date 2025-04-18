@@ -1,7 +1,11 @@
 const fs = require("fs");
 const path = require("path");
 
-const toytagsPath = path.join(__dirname, "server/json/", "toytags.json");
+const toytagsPath = path.join(
+  __dirname,
+  "../../public/json",
+  "vehiclemap.json"
+); //TODO: Forgot to move
 
 export function initalize() {
   const database = get();

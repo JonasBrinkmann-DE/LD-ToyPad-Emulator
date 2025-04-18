@@ -3,7 +3,10 @@ import Config from "../../config/config";
 const fs = require("fs");
 const path = require("path");
 
-const vehicleMapPath = path.join(__dirname, "server/json/vehiclemap.json");
+const vehicleMapPath = path.join(
+  __dirname,
+  "../../public/json/json/vehiclemap.json"
+);
 
 let cached: IVehicle[] | undefined;
 
