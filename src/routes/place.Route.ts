@@ -10,6 +10,9 @@ router.post("/", (req: Request, res: Response) => {
   console.log("Placing tag: " + req.body.id);
   const entry = Toytags.getEntry("uid", req.body.uid);
 
+  if (!entry) {
+    return;
+  }
   if (entry.type == Tagtype.Character) {
     const character = createCharacter(req.body.id, req.body.uid);
     Global.emulator.tp.place(
@@ -23,7 +26,7 @@ router.post("/", (req: Request, res: Response) => {
   } else {
     const vehicle = createVehicle(
       req.body.id,
-      [entry.upgrades.page23, entry.upgrades.page25],
+      [entry.upgrades?.page23, entry.upgrades?.page25],
       req.body.uid
     );
     Global.emulator.tp.place(

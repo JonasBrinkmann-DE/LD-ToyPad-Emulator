@@ -11,8 +11,11 @@ router.post("/", (req: Request, res: Response) => {
   const id = req.body.id;
   const uid = Global.emulator.randomUID();
   const character = createCharacter(id, uid);
-  const name = getEntry("id", id).name;
+  const name = getEntry("id", id)?.name;
 
+  if (!name) {
+    return;
+  }
   const entry: IToytag = {
     name: name,
     id: character.id,

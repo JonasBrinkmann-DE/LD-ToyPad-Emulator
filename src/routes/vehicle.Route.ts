@@ -13,10 +13,12 @@ router.post("/", (req: Request, res: Response) => {
   console.log("Creating vehicle: " + req.body.id);
   const uid = Global.emulator.tp.randomUID();
   const vehicle = createVehicle(req.body.id, [0xefffffff, 0xefffffff], uid);
-  const name = getEntry("id", req.body.id).name;
+  const name = getEntry("id", req.body.id)?.name;
 
   console.log("name: " + name, " uid: " + vehicle.uid, " id: " + vehicle.id);
-
+  if (!name) {
+    return;
+  }
   const entry: IToytag = {
     name: name,
     id: req.body.id,

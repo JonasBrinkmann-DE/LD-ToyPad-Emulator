@@ -7,7 +7,7 @@ class WriteHook implements IHook {
     const index = req.payload[0];
     const page = req.payload[1];
     const data = req.payload.slice(2);
-    const uid = Toytags.getEntry("index", index).uid;
+    const uid = Toytags.getEntry("index", index)?.uid;
     console.log(
       "REQUEST (CMD_WRITE): index:",
       index,
@@ -35,7 +35,7 @@ class WriteHook implements IHook {
       Global.socket.emit(IOEvents.RefreshTokens);
     }
     res.payload = Buffer.from([0x00]);
-    const token = Global.emulator._tokens.find((t) => t.index == index);
+    const token = Global.emulator._tokens.find((t: any) => t.index == index);
     if (token) {
       req.payload.copy(token.token, 4 * page, 2, 6);
     }
