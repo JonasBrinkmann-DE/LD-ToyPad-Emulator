@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<!--
+
+	Copyright © 2023 Berny23, Cort1237 and many more
+
+	This file is part of "Toy Pad Emulator for Lego Dimensions" which is released under the "MIT" license.
+	See file "LICENSE" or go to "https://choosealicense.com/licenses/mit" for full license details.
+
+-->
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Toy Pad Emulator for Lego Dimensions | v1.4.1</title>
+    <link rel="stylesheet" href="stylesheets/main.css" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <script src="libs/Sortable.min.js"></script>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="scripts/entry.js" type="module"></script>
+  </head>
+
+  <body>
+    <div id="shadow" hidden></div>
+    <dialog id="creation-screen">
+      <div id="search-area">search area</div>
+      <div id="area-wrapper">
+        <div id="content-area">content</div>
+        <div id="filter-area">filters</div>
+      </div>
+      <div>notes</div>
+    </dialog>
+    <main>
+      <div id="banner" class="container">
+        <b
+          >If you encounter a token that is not responding, move it to the toy
+          box and then back to the Toy Pad.</b
+        >
+        <br />
+        <button id="sync" type="button">
+          Things Not Working? Click Here To Sync!
+        </button>
+      </div>
+      <div id="layout-controller">
+        <div id="toypad-column" class="layout-column">
+          <div id="toypad" class="container">
+            <b id="status" class="container" hidden> Waiting for Game... </b>
+            <div id="red-strip"></div>
+            <div id="detail-00"></div>
+            <div id="detail-01"></div>
+            <div id="detail-02"></div>
+            <div id="detail-03"></div>
+
+            <div>
+              <div class="drop-targets">
+                <div
+                  id="toypad1"
+                  class="box"
+                  pad-num="2"
+                  pad-index="1"
+                  color="white"
+                ></div>
+                <div
+                  id="toypad2"
+                  class="box"
+                  pad-num="1"
+                  pad-index="2"
+                  color="white"
+                ></div>
+                <div
+                  id="toypad3"
+                  class="box"
+                  pad-num="3"
+                  pad-index="3"
+                  color="white"
+                ></div>
+              </div>
+              <div class="drop-targets">
+                <div
+                  id="toypad4"
+                  class="box"
+                  pad-num="2"
+                  pad-index="4"
+                  color="white"
+                ></div>
+                <div
+                  id="toypad5"
+                  class="box"
+                  pad-num="2"
+                  pad-index="5"
+                  color="white"
+                ></div>
+                <div
+                  id="toypad6"
+                  class="box"
+                  pad-num="3"
+                  pad-index="6"
+                  color="white"
+                ></div>
+                <div
+                  id="toypad7"
+                  class="box"
+                  pad-num="3"
+                  pad-index="7"
+                  color="white"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="toybox-column" class="flex-container layout-column">
+          <div id="token-box" class="flex-container">
+            <ul id="toybox-tokens" class="box" pad-num="-1"></ul>
+          </div>
+        </div>
+      </div>
+      <div id="tag-creation-container">
+        <form id="character-select" class="container">
+          <label>
+            <input
+              list="character-list"
+              id="character-name"
+              onfocus="this.value=''"
+              placeholder="Select a character"
+            />
+            <datalist id="character-list"></datalist>
+          </label>
+          <br />
+          <button type="submit">Create</button>
+        </form>
+
+        <form id="vehicle-select" class="container">
+          <label>
+            <input
+              list="vehicle-list"
+              id="vehicle-name"
+              onfocus="this.value=''"
+              placeholder="Select a vehicle"
+            />
+            <datalist id="vehicle-list"></datalist>
+          </label>
+          <br />
+          <button type="submit">Create</button>
+        </form>
+      </div>
+      <br />
+
+      <script src="scripts/footer.js"></script>
+      <footer>
+        <p>Copyright © 2023 Berny23</p>
+        <div>
+          <button onclick="OpenCopyright()">©</button>
+          <button onclick="OpenGithub()">
+            <img src="ressources/github-mark.svg" alt="" width="16px" />
+          </button>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>
