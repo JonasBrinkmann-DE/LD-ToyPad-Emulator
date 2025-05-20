@@ -1,3 +1,19 @@
+<<<<<<< Updated upstream:server/stylesheets/main.css
+=======
+@import "toypad.css";
+@import "dialogs/creationDialog.css";
+
+:root {
+    --box-width: 9em;
+    --box-padding: 12px;
+    --box-border: 1px;
+    --box-total: calc(var(--box-width) + 2 * var(--box-padding) + 2 * var(--box-border));
+    --middle-box-width: 9.75em;
+    --detail-color-00: rgb(53, 53, 53);
+    --detail-color-01: rgb(61, 61, 61);
+}
+
+>>>>>>> Stashed changes:public/stylesheets/main.css
 html {
     display: table;
     margin: auto;
@@ -6,18 +22,50 @@ html {
 
 body {
     display: flex;
-    align-items: center;
     flex-direction: column;
-    vertical-align: middle;
+    align-items: center;
     margin: 0%;
+    vertical-align: middle;
     text-align: center;
     font-family: sans-serif;
 }
 
+<<<<<<< Updated upstream:server/stylesheets/main.css
+=======
+header {
+    background-color: rgb(26, 26, 26);
+    color: white;
+    height: 3.4rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+}
+
+footer {
+    font-size: 1em;
+}
+
+#toypad {
+    align-content: end;
+    background-color: #49494b;
+    background-image: linear-gradient(#49494b, #424244);
+    width: fit-content;
+    padding-top: 4em;
+
+    height: calc(var(--box-width) * 3);
+}
+
+>>>>>>> Stashed changes:public/stylesheets/main.css
 html,
 body,
-#focus {
+main {
     width: 100%;
+}
+
+#focus {
+    border-radius: 0 !important;
 }
 
 #toybox-column,
@@ -25,7 +73,7 @@ body,
     flex: 1;
 }
 
-.TokenTools {
+.toolbox {
     flex-basis: 154px;
 }
 
@@ -37,17 +85,25 @@ body,
     margin-top: 1em;
 }
 
+<<<<<<< Updated upstream:server/stylesheets/main.css
 #footer {
     font-size: 1em;
+=======
+.filter {
+    display: inline-block;
+    margin: 10px;
+>>>>>>> Stashed changes:public/stylesheets/main.css
 }
 
 input {
-    margin-bottom: 1em;
-    font-size: 1.2em;
-    border-radius: 0.5rem;
     border: 1px solid transparent;
-    cursor: default;
-    text-align: center;
+    border-radius: 0.5rem;
+    padding: 0.4rem 1rem;
+    font-size: 1.1em;
+}
+
+input[type="search"] {
+    margin-right: 8px;
 }
 
 input:focus-visible {
@@ -55,19 +111,24 @@ input:focus-visible {
 }
 
 button {
-    padding: 1em;
-    font-weight: bold;
-    border-radius: 0.5rem;
+    transition: background-color 250ms;
     border: 1px solid transparent;
-    cursor: pointer;
+    border-radius: 0.5rem;
     box-shadow: #00000033 0 4px 12px;
     background-color: #bdbdbd;
-    transition: background-color 250ms;
+    cursor: pointer;
+    padding: 1em;
+    font-weight: bold;
 }
 
 button:hover,
 button:active {
     background-color: #8d8d8d;
+}
+
+#clear-filters {
+    padding: 0 3rem;
+    height: 2.3rem;
 }
 
 #sync {
@@ -81,25 +142,32 @@ button:active {
 }
 
 .container {
+<<<<<<< Updated upstream:server/stylesheets/main.css
     background-color: #efefef;
     box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
     padding: 1em;
     border-radius: 0.5rem;
+=======
+>>>>>>> Stashed changes:public/stylesheets/main.css
     display: inline-flexbox;
     position: relative;
     margin: 1.5em auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
+    background-color: rgb(239, 239, 239);
+    padding: 1em;
 }
 
 .flex-container {
+    display: flex;
+    position: relative;
     flex-direction: column;
     margin: auto;
-    background-color: #efefef;
-    box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
-    padding: 1em;
-    display: flex;
-    min-height: 100px;
     border-radius: 0.5rem;
-    position: relative;
+    box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
+    background-color: #efefef;
+    padding: 1em;
+    min-height: 100px;
 }
 
 .layout-column {
@@ -122,23 +190,39 @@ button:active {
     margin-right: 2em;
 }
 
-.box {
-    border: solid 3px transparent;
-    margin: 0;
-    list-style-type: none;
-    padding: 10px;
-    transition: background-color 0.25s ease-out;
-    border-radius: 0.5rem;
-
-    /* align items in the box */
+#shadow {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.314);
+    height: 100vh;
+    z-index: 5;
 }
 
+.box {
+    transition: background-color 0.25s ease-out;
+    z-index: 1;
+    margin: 0;
+    border: solid var(--box-border) var(--detail-color-01);
+    border-radius: 0.5rem;
+    padding: var(--box-padding);
+    list-style-type: none;
+}
+
+<<<<<<< Updated upstream:server/stylesheets/main.css
+=======
+.drop-targets:first-of-type {
+    justify-content: space-between;
+    width: calc(100%);
+}
+
+>>>>>>> Stashed changes:public/stylesheets/main.css
 .drop-targets {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
     position: relative;
+<<<<<<< Updated upstream:server/stylesheets/main.css
     margin: 1em 0;
 }
 
@@ -151,20 +235,37 @@ button:active {
     background-color: #6e6e6e;
     background-blend-mode: soft-light;
     margin: 0 0.5em;
+=======
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.drop-targets>.box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    border-radius: 0;
+    background-color: #d8d7d8;
+    width: var(--box-width);
+    height: var(--box-width);
+    background-blend-mode: soft-light;
+>>>>>>> Stashed changes:public/stylesheets/main.css
 }
 
 .item {
-    width: 7em;
-    height: 7em;
-    background-color: #ffa726;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 3;
     border: 1px solid transparent;
     border-radius: 0.5rem;
-    color: #000;
-    box-sizing: border-box;
-    cursor: pointer;
     box-shadow: #00000033 0 4px 12px;
+    background-color: #ffa726;
     cursor: grab;
-    position: relative;
+    width: 7em;
+    height: 7em;
+    color: #000;
 }
 
 .item.filtered {
@@ -181,8 +282,8 @@ button:active {
 .item.filtered:hover,
 .item.filtered:focus,
 .item.filtered:active {
-    background-color: #c77800;
     transition: background-color 250ms;
+    background-color: #c77800;
 }
 
 .item[data-type="vehicle"] {
@@ -206,59 +307,76 @@ button:active {
     cursor: grabbing;
 }
 
-.item[id="deleteToken"],
 .item[id="colorToken"] {
     width: 9em;
     height: 9em;
 }
 
-#warnings {
-    color: #e8eaf6;
+#banner {
     background-color: #26418f;
     padding: 1em;
+    width: 100vw;
+    text-align: start;
     line-height: 2em;
-    width: fit-content;
+    color: #e8eaf6;
+    border-radius: 0;
+    margin: 0;
 }
 
 #status {
-    color: #e8eaf6;
-    background-color: #b61827;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    align-content: center;
+    z-index: 4;
+    margin: 0;
+    background-color: #000000b9;
     padding: 1em;
+    color: #e8eaf6;
 }
 
 #token-box {
-    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 0%), 0 6px 20px 0 rgb(0 0 0 / 0%);
     flex-direction: row;
     justify-content: center;
     margin: 0;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 0%), 0 6px 20px 0 rgb(0 0 0 / 0%);
 }
 
 .box.box-edit {
-    border: solid 3px transparent;
-    margin: 0;
-    list-style-type: none;
-    padding: 10px;
-    transition: background-color 0.25s ease-out;
-    border-radius: 0.5rem;
-    height: 8em;
-    width: 8em;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.25s ease-out;
+    margin: 0;
+    border: solid 3px transparent;
     border-radius: 0.5rem;
     cursor: default;
     padding: 10;
+    width: 8em;
+    height: 8em;
+    list-style-type: none;
 }
 
-.box-edit>#deleteToken {
-    background-color: #ef5350;
+.action {
+    border-radius: 8px;
+    width: 95%;
+    height: 100%;
+}
+
+#deleteAction {
+    display: grid;
+    align-content: center;
     box-shadow: none;
-    cursor: default;
+    background-color: #e22f2f;
+    cursor: zoom-in;
+    color: white;
 }
 
 .box-edit>#colorToken {
-    background-color: #d450ef;
     box-shadow: none;
+    background-color: #d450ef;
     cursor: default;
 }
 
@@ -268,21 +386,22 @@ button:active {
 }
 
 #toybox-tokens {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    border-radius: 0.5rem;
-    min-height: auto;
-    margin-right: 0.5em;
-    background-color: #bdbdbd;
-    height: 45vh;
-    overflow-y: scroll;
     position: relative;
+    margin: 0;
+    margin-right: 0.5em;
+    border-radius: 0.5rem;
+    border: 1px solid rgb(128, 128, 128);
+    background-color: #bdbdbd;
+    padding: 0;
+    height: 45vh;
+    min-height: auto;
+    overflow-y: scroll;
+    list-style-type: none;
 }
 
 #toybox-tokens li {
-    margin: 0.5em;
     float: left;
+    margin: 0.5em;
 }
 
 #layout-controller {
@@ -291,14 +410,58 @@ button:active {
     align-items: center;
 }
 
-.filter {
-    display: inline-block;
-    margin: 10px;
+#filter-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+#filter-container>.sub {
+    display: flex;
+    align-items: center;
 }
 
 .filter label,
 .filter input {
     display: block;
+}
+
+footer {
+    background-color: rgb(26, 26, 26);
+    color: white;
+    height: 3.4rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10em;
+}
+
+footer p {
+    margin-left: 0.5em;
+}
+
+footer div {
+    display: flex;
+}
+
+footer button {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    width: 2.5em;
+    height: 2.5em;
+    margin-right: 8px;
+
+}
+
+footer button img {
+    margin: 0;
+    padding: 0;
+}
+
+header button {
+    margin-left: auto;
+    margin-right: 1.7rem;
 }
 
 @media screen and (max-width: 1556px) {
@@ -329,6 +492,6 @@ button:active {
     }
 
     #toybox-column {
-        width: calc(100% - 80px);
+        width: calc(100% - 5em);
     }
 }

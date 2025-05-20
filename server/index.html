@@ -14,20 +14,31 @@
     <title>Toy Pad Emulator for Lego Dimensions | v1.4.1</title>
     <link rel="stylesheet" href="stylesheets/main.css" />
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
+<<<<<<< Updated upstream:server/index.html
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"
     ></script>
+=======
+    <script src="libs/Sortable.min.js"></script>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="scripts/entry.js" type="module"></script>
+>>>>>>> Stashed changes:public/index.html
   </head>
 
   <body>
-    <div id="focus">
-      <h1 id="header">Toy Pad Emulator for Lego Dimensions</h1>
-      <div id="warnings" class="container">
-        Create characters and vehicles with the boxes at the top, then drag them
-        to the Toy Pad.
-        <br />
+    <div id="shadow" hidden></div>
+    <dialog id="creation-screen">
+      <div id="search-area">search area</div>
+      <div id="area-wrapper">
+        <div id="content-area">content</div>
+        <div id="filter-area">filters</div>
+      </div>
+      <div>notes</div>
+    </dialog>
+    <main>
+      <div id="banner" class="container">
         <b
           >If you encounter a token that is not responding, move it to the toy
           box and then back to the Toy Pad.</b
@@ -37,114 +48,20 @@
           Things Not Working? Click Here To Sync!
         </button>
       </div>
-      <div id="tag-creation-container">
-        <form id="character-select" class="container">
-          <label>
-            <input
-              list="character-list"
-              id="character-name"
-              onfocus="this.value=''"
-              onchange="this.blur();"
-              placeholder="Select a character"
-            />
-            <datalist id="character-list"></datalist>
-          </label>
-          <br />
-          <button type="submit">Create Character</button>
-        </form>
-
-        <form id="vehicle-select" class="container">
-          <label>
-            <input
-              list="vehicle-list"
-              id="vehicle-name"
-              onfocus="this.value=''"
-              onchange="this.blur();"
-              placeholder="Select a vehicle"
-            />
-            <datalist id="vehicle-list"></datalist>
-          </label>
-          <br />
-          <button type="submit">Create Vehicle</button>
-        </form>
-      </div>
-      <br />
       <div id="layout-controller">
-        <div id="toybox-column" class="flex-container layout-column">
-          <h2>Toy Box</h2>
-          <div id="token-box" class="flex-container">
-            <div class="TokenTools">
-              <ul id="remove-tokens" class="box box-edit" pad-num="-2">
-                <li
-                  class="item drag-disabled"
-                  draggable="false"
-                  id="deleteToken"
-                >
-                  <svg viewBox="0 0 80 18">
-                    <text x="0" y="15">&nbsp;&nbsp;Drag to</text>
-                  </svg>
-                  <svg viewBox="0 0 80 18">
-                    <text x="0" y="15">&nbsp;&nbsp;this side</text>
-                  </svg>
-                  <svg viewBox="0 0 80 18">
-                    <text x="0" y="15">&nbsp;&nbsp;to delete</text>
-                  </svg>
-                  <svg viewBox="0 0 70 18">
-                    <text x="0" y="15">
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;➜
-                    </text>
-                  </svg>
-                </li>
-              </ul>
-            </div>
-            <ul id="toybox-tokens" class="box" pad-num="-1"></ul>
-          </div>
-          <div id="filter-container">
-            <div class="filter">
-              <input
-                id="name-filter"
-                type="search"
-                name="name-filter"
-                placeholder="Filter by name..."
-              />
-            </div>
-            <div class="filter">
-              <input
-                list="world-list"
-                id="tag-world-filter"
-                type="search"
-                name="tag-world-filter"
-                class="filter-input"
-                placeholder="Filter by world..."
-              />
-              <datalist id="world-list"></datalist>
-            </div>
-            <div class="filter">
-              <input
-                list="ability-list"
-                id="tag-ability-filter"
-                type="search"
-                name="tag-ability-filter"
-                class="filter-input"
-                placeholder="Filter by ability..."
-              />
-              <datalist id="ability-list"></datalist>
-            </div>
-            <br />
-            <button id="clear-filters">Clear all filters</button>
-          </div>
-        </div>
-
         <div id="toypad-column" class="layout-column">
-          <p id="status" class="container">
-            WARNING: Do not place any characters, I have not communicated with
-            the game yet.<br />
-            Placing characters now will cause me to crash. <br />
-            This message will disappear when I can see the game.
-          </p>
-
           <div id="toypad" class="container">
+<<<<<<< Updated upstream:server/index.html
             <h1>The Toy Pad</h1>
+=======
+            <b id="status" class="container" hidden> Waiting for Game... </b>
+            <div id="red-strip"></div>
+            <div id="detail-00"></div>
+            <div id="detail-01"></div>
+            <div id="detail-02"></div>
+            <div id="detail-03"></div>
+
+>>>>>>> Stashed changes:public/index.html
             <div>
               <div class="drop-targets">
                 <div
@@ -154,7 +71,6 @@
                   pad-index="1"
                   color="white"
                 ></div>
-                <div class="box" style="visibility: hidden"></div>
                 <div
                   id="toypad2"
                   class="box"
@@ -162,7 +78,6 @@
                   pad-index="2"
                   color="white"
                 ></div>
-                <div class="box" style="visibility: hidden"></div>
                 <div
                   id="toypad3"
                   class="box"
@@ -186,7 +101,10 @@
                   pad-index="5"
                   color="white"
                 ></div>
+<<<<<<< Updated upstream:server/index.html
                 <div class="box" style="visibility: hidden"></div>
+=======
+>>>>>>> Stashed changes:public/index.html
                 <div
                   id="toypad6"
                   class="box"
@@ -205,8 +123,28 @@
             </div>
           </div>
         </div>
+        <div id="toybox-column" class="flex-container layout-column">
+          <div id="token-box" class="flex-container">
+            <ul id="toybox-tokens" class="box" pad-num="-1"></ul>
+          </div>
+        </div>
       </div>
+      <div id="tag-creation-container">
+        <form id="character-select" class="container">
+          <label>
+            <input
+              list="character-list"
+              id="character-name"
+              onfocus="this.value=''"
+              placeholder="Select a character"
+            />
+            <datalist id="character-list"></datalist>
+          </label>
+          <br />
+          <button type="submit">Create</button>
+        </form>
 
+<<<<<<< Updated upstream:server/index.html
       <p id="footer">
         Copyright © 2023 Berny23, Cort1237 and many more | <b>v1.4.1</b> | This
         software is licensed under the
@@ -226,5 +164,34 @@
       crossorigin="anonymous"
     ></script>
     <script src="scripts/main.js"></script>
+=======
+        <form id="vehicle-select" class="container">
+          <label>
+            <input
+              list="vehicle-list"
+              id="vehicle-name"
+              onfocus="this.value=''"
+              placeholder="Select a vehicle"
+            />
+            <datalist id="vehicle-list"></datalist>
+          </label>
+          <br />
+          <button type="submit">Create</button>
+        </form>
+      </div>
+      <br />
+
+      <script src="scripts/footer.js"></script>
+      <footer>
+        <p>Copyright © 2023 Berny23</p>
+        <div>
+          <button onclick="OpenCopyright()">©</button>
+          <button onclick="OpenGithub()">
+            <img src="ressources/github-mark.svg" alt="" width="16px" />
+          </button>
+        </div>
+      </footer>
+    </main>
+>>>>>>> Stashed changes:public/index.html
   </body>
 </html>

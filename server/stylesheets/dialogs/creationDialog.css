@@ -1,0 +1,21 @@
+#creation-screen {
+    position: absolute;
+    width: 95vw;
+    height: 75vh;
+    min-width: 700px;
+    margin-left: auto;
+    left: 50%;
+    top: 50%;
+    background-color: rgb(243, 243, 243);
+    border-radius: 0.7rem;
+    z-index: 6;
+    transform: translate(-50%, -50%);
+}
+
+#creation-screen div {
+    border: 1px solid red;
+}
+
+#area-wrapper {
+    display: flex;
+}
