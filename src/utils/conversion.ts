@@ -1,4 +1,5 @@
 import { Color } from "interfaces/Color";
+
 export function RGBToHex(
   r: number,
   g: number,
@@ -105,7 +106,6 @@ export function RGBToHex(
 function TwoCharacterHex(component: number) {
   return component.toString(16).padStart(2, "0");
 }
-
 export function GetColor(payload: Array<number>, index: number) {
   const col: Color = { r: 0, g: 0, b: 0 };
 

@@ -1,10 +1,10 @@
 import express, { Request, Response } from "express";
+
 import { tp } from "bridge";
 import { addEntry } from "utils/toytags";
 import { createVehicle, getTokenNameFromID } from "utils/tagUtils";
 import { Toytag } from "interfaces/Toytag";
 import Tagtypes from "enums/Tagtypes";
-
 const router = express.Router();
 
 router.post("/", (req: Request, res: Response) => {
