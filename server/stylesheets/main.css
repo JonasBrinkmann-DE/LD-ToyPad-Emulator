@@ -1,5 +1,8 @@
 <<<<<<< Updated upstream:server/stylesheets/main.css
+<<<<<<< Updated upstream:server/stylesheets/main.css
 =======
+=======
+>>>>>>> Stashed changes:public/stylesheets/main.css
 @import "toypad.css";
 @import "dialogs/creationDialog.css";
 
@@ -31,7 +34,10 @@ body {
 }
 
 <<<<<<< Updated upstream:server/stylesheets/main.css
+<<<<<<< Updated upstream:server/stylesheets/main.css
 =======
+=======
+>>>>>>> Stashed changes:public/stylesheets/main.css
 header {
     background-color: rgb(26, 26, 26);
     color: white;
@@ -41,6 +47,23 @@ header {
     justify-content: space-between;
     align-items: center;
     width: 100vw;
+<<<<<<< Updated upstream:server/stylesheets/main.css
+=======
+}
+
+footer {
+    font-size: 1em;
+}
+
+#toypad {
+    align-content: end;
+    background-color: #49494b;
+    background-image: linear-gradient(#49494b, #424244);
+    width: fit-content;
+    padding-top: 4em;
+
+    height: calc(var(--box-width) * 3);
+>>>>>>> Stashed changes:public/stylesheets/main.css
 }
 
 footer {
@@ -86,8 +109,14 @@ main {
 }
 
 <<<<<<< Updated upstream:server/stylesheets/main.css
+<<<<<<< Updated upstream:server/stylesheets/main.css
 #footer {
     font-size: 1em;
+=======
+.filter {
+    display: inline-block;
+    margin: 10px;
+>>>>>>> Stashed changes:public/stylesheets/main.css
 =======
 .filter {
     display: inline-block;
@@ -143,6 +172,7 @@ button:active {
 
 .container {
 <<<<<<< Updated upstream:server/stylesheets/main.css
+<<<<<<< Updated upstream:server/stylesheets/main.css
     background-color: #efefef;
     box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
     padding: 1em;
@@ -164,6 +194,23 @@ button:active {
     flex-direction: column;
     margin: auto;
     border-radius: 0.5rem;
+=======
+    display: inline-flexbox;
+    position: relative;
+    margin: 1.5em auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
+    background-color: rgb(239, 239, 239);
+    padding: 1em;
+}
+
+.flex-container {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin: auto;
+    border-radius: 0.5rem;
+>>>>>>> Stashed changes:public/stylesheets/main.css
     box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
     background-color: #efefef;
     padding: 1em;
@@ -223,6 +270,7 @@ button:active {
     display: flex;
     position: relative;
 <<<<<<< Updated upstream:server/stylesheets/main.css
+<<<<<<< Updated upstream:server/stylesheets/main.css
     margin: 1em 0;
 }
 
@@ -245,12 +293,26 @@ button:active {
     display: flex;
     align-items: center;
     justify-content: center;
+=======
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.drop-targets>.box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+>>>>>>> Stashed changes:public/stylesheets/main.css
     outline: none;
     border-radius: 0;
     background-color: #d8d7d8;
     width: var(--box-width);
     height: var(--box-width);
     background-blend-mode: soft-light;
+<<<<<<< Updated upstream:server/stylesheets/main.css
+>>>>>>> Stashed changes:public/stylesheets/main.css
+=======
 >>>>>>> Stashed changes:public/stylesheets/main.css
 }
 
