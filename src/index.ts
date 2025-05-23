@@ -5,9 +5,8 @@ import { io, setIO, tp } from "bridge";
 import { setupSocket } from "io";
 import { hook } from "hooks";
 import Emits from "enums/Emits";
-import { loadConfig } from "Config";
+import { loadConfig } from "config";
 import { IConfig } from "interfaces/IConfig";
-import path from "path";
 
 function init() {
   const config: IConfig = loadConfig();
