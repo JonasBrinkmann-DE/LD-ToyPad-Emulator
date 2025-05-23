@@ -1,4 +1,5 @@
-import { RefreshToyBox, UpdateToyPadPosition } from "./api.js";
+import { Place, RefreshToyBox, UpdateToyPadPosition } from "./api.js";
+import { DeleteBox, EditBox, ToyboxTokens } from "./dom.js";
 import { MousePosition } from "./entry.js";
 import { ApplyFilters } from "./filters.js";
 import { socket } from "./socketHandler.js";
@@ -6,64 +7,100 @@ import { socket } from "./socketHandler.js";
 const DRAG_OFFSET_X = 20;
 const DRAG_OFFSET_Y = 0;
 
-const toyboxSortable = new Sortable(document.getElementById("toybox-tokens"), {
-  group: {
-    name: "shared",
-  },
-  animation: 150,
-  scroll: true,
-  scrollSensitivity: 40,
-  scrollSpeed: 10,
-  onStart: onSortStart,
-  onStop: onSortStop,
-  onSort: onSort,
-  onReceive: onReceive,
-});
+export function createSortables() {
+  new Sortable(DeleteBox, {
+    group: {
+      name: "shared",
+    },
+    sort: false,
+    onAdd: function (e) {
+      const uid = e.item.getAttribute("uid");
 
-function onSortStart(e) {
-  // Store the starting pad number and index so we can determine when releasing the tag if it was released in the same space
-  const closest = e.item.closest(".box");
+      socket?.emit("deleteToken", uid);
+      setTimeout(async function () {
+        await RefreshToyBox();
+      }, 500); //TODO: No artificial delay
+    },
+  });
+  new Sortable(EditBox, {
+    group: {
+      name: "shared",
+    },
+    sort: false,
+    onAdd: function (e) {
+      //OPEN EDIT DIALOG
+      e.from.insertBefore(e.item, e.from.children[e.oldIndex]);
+    },
+  });
+  new Sortable(ToyboxTokens, {
+    group: {
+      name: "shared",
+    },
+    animation: 150,
+    scroll: true,
+    scrollSensitivity: 40,
+    scrollSpeed: 10,
+    onMove: onMove,
+    onAdd: onDropToybox,
+  });
+  document.querySelectorAll("[pad-num]").forEach((element) => {
+    const pad = element.getAttribute("pad-num");
+    if (pad < 0) return;
 
-  e.item.setAttribute("previous-pad-num", closest.getAttribute("pad-num"));
-  e.item.setAttribute("previous-pad-index", closest.getAttribute("pad-index"));
+    new Sortable(element, {
+      group: {
+        name: "shared",
+      },
+      animation: 150,
+      scroll: true,
+      scrollSensitivity: 40,
+      scrollSpeed: 10,
+      onMove: onMove,
+      onAdd: onDropToypad,
+    });
+  });
 }
-function onSortStop(e) {
+
+function onDropToybox(e) {
+  console.log("DROP TOYBOX");
+  const uid = e.item.getAttribute("data-uid");
+  const url = `/tokens/${uid}`;
+  const parent = e.to;
+
+  const padIndex = parseInt(parent.getAttribute("pad-index"));
+
+  fetch(url, {
+    method: "POST",
+    body: JSON.stringify({
+      index: padIndex,
+    }),
+  });
+}
+function onDropToypad(e) {
+  console.log("DROP TOYPAD");
   var parentBox = e.item.closest(".box");
-  var previousPadNum = e.item.attr("previous-pad-num");
-  var newPadNum = parentBox.attr("pad-num");
-  var previousPadIndex = e.item.attr("previous-pad-index");
-  var newPadIndex = parentBox.attr("pad-index");
+  var newPadNum = parentBox.getAttribute("pad-num");
+  var newPadIndex = parentBox.getAttribute("pad-index");
 
-  // If moving to the same space on the Toy Pad, remove and place in the current space
-  if (
-    previousPadNum != -1 &&
-    previousPadNum == newPadNum &&
-    previousPadIndex == newPadIndex
-  ) {
-    UpdateToyPadPosition(
-      e.item.getAttribute("data-uid"),
-      newPadNum,
-      newPadIndex
-    );
-  }
+  UpdateToyPadPosition(e.item.getAttribute("data-uid"), newPadNum, newPadIndex);
 
-  e.item.removeAttribute("previous-pad-num");
-  e.item.removeAttribute("previous-pad-index");
-
-  ApplyFilters(); //Refilter in case anything was in the search bar.
+  ApplyFilters();
 }
-function onSort(e) {
-  e.item.style.left = MousePosition.x - DRAG_OFFSET_X;
-  e.item.style.top = MousePosition.y - DRAG_OFFSET_Y;
-  e.item.style.listStyleType = "none";
+function onMove(e) {
+  const target = e.to;
+
+  const limit = target.getAttribute("max-items");
+
+  if (!limit) {
+    return true;
+  }
+  if (target.children.length >= parseInt(limit) && e.from !== target) {
+    return false;
+  }
 }
 function onReceive(e) {
   const id = e.item.getAttribute("id");
   if (id == "remove-tokens") {
-    socket?.emit("deleteToken", e.item.getAttribute("data-uid"));
-    setTimeout(async function () {
-      await RefreshToyBox();
-    }, 500); //TODO: No artificial delay
   } else if (
     this.getAttribute("pad-num") == undefined ||
     (this.children("li").length > 1 && id != "toybox-tokens")
@@ -74,28 +111,16 @@ function onReceive(e) {
 
   //If moving to the Toy Pox, remove tag from the game.
   else if (id == "toybox-tokens") {
-    const uid = e.item.attr("data-uid");
-    const url = `/tokens/${uid}/place`;
-
-    const padIndex = parseInt(e.sender.getAttribute("pad-index"));
-
-    fetch(url, {
-      method: "POST",
-      body: JSON.stringify({
-        index: padIndex,
-      }),
-    });
   }
   //If moving from the Toy Box, place tag in the game.
-  else if (e.sender.attr("pad-num") == -1) {
+  else if (e.sender.getAttribute("pad-num") == -1) {
     //event.sender.sortable("cancel");
 
     const uid = e.item.getAttribute("data-uid");
-    const position = this.attr("pad-num");
-    const index = this.attr("pad-index");
-    const id = e.item.attr("data-id");
+    const position = this.getAttribute("pad-num");
+    const index = this.getAttribute("pad-index");
 
-    socket.emit("place", uid, index, position);
+    Place(uid, index, position);
     return false;
   }
   //If moving between spaces on the Toy Pad, remove from previous space and place in new one.
