@@ -1,8 +1,8 @@
+import { FadePad, LoadCharactermap, LoadTokenmap } from "./utils.js";
 import { Register as RegisterIOEvents, socket } from "./socketHandler.js";
 import { CreateItemHtml, ToyboxTokens } from "./dom.js";
-import { LoadCharactermap, LoadTokenmap } from "./utils.js";
 import { SetupFilterInputs } from "./filters.js";
-
+import { createSortables } from "./dragdrop.js";
 export const MousePosition = { x: -1, y: -1 };
 export const Characters = await LoadCharactermap();
 export const Vehicles = await LoadTokenmap();
@@ -12,11 +12,13 @@ function init() {
     MousePosition.x = e.pageX;
     MousePosition.y = e.pageY;
   });
-  socket.emit("connectionStatus");
-  socket.emit("syncToyPad");
+
+  createSortables();
+  socket?.emit("connectionStatus");
+  socket?.emit("syncToyPad");
 }
-function createTestingData(count) {
-  for (let i = 0; i < count; i++) {
+function createTestingData(char, veh) {
+  for (let i = 0; i < char; i++) {
     ToyboxTokens?.insertAdjacentHTML(
       "beforeend",
       CreateItemHtml({
@@ -27,10 +29,21 @@ function createTestingData(count) {
       })
     );
   }
+  for (let i = 0; i < veh; i++) {
+    ToyboxTokens?.insertAdjacentHTML(
+      "beforeend",
+      CreateItemHtml({
+        name: "testing",
+        uid: "012345678900000",
+        id: i + 1000,
+        type: "vehicle",
+      })
+    );
+  }
 }
 
 SetupFilterInputs();
 RegisterIOEvents();
 
-createTestingData(5);
+createTestingData(5, 3);
 init();
