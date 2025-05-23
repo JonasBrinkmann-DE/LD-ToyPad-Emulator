@@ -39,23 +39,16 @@ export function GetAllItems() {
   return document.querySelectorAll(".item");
 }
 export function CreateItemHtml(item) {
-  let itemData;
-  if (item.type == "character") {
-    itemData = FilterById(Characters, item.id);
-  } else {
-    itemData = FilterById(Vehicles, item.id);
-  }
+  const itemData = FilterById(
+    item.type == "character" ? Characters : Vehicles,
+    item.id
+  );
 
-  let content = "<h3>" + itemData.name + "</h3>";
+  let content = `<h3>${itemData.name}</h3>`;
   const path = "images/" + itemData.id;
   const url = location.href + "/../" + path;
   if (DoesFileExist(url)) {
-    content =
-      "<img src=" +
-      path +
-      " alt=" +
-      itemData.name +
-      " style='width: 100%; height: 100%; object-fit: contain; pointer-events: none;'>";
+    content = `<img src="${path}" alt="${itemData.name}" class="preview">`;
   }
 
   return (
