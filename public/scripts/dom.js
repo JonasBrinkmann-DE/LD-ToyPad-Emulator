@@ -52,7 +52,7 @@ export function CreateItemHtml(item) {
   }
 
   return (
-    "<li class=item draggable=true data-name=" +
+    "<li class=item data-name=" +
     item.name +
     " data-type=" +
     item.type +
@@ -60,8 +60,6 @@ export function CreateItemHtml(item) {
     item.id +
     " data-uid=" +
     item.uid +
-    " pad=" +
-    item.pad +
     ' data-world="' +
     itemData.world +
     '" data-abilities="' +
