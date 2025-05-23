@@ -4,15 +4,14 @@ import { FadePad, GetGroupIndex, GetGroupMembers } from "./utils.js";
 export const socket = undefined;
 //export const socket = io();
 export function Register() {
-  return;
-  socket.on("refresh", function () {
+  socket?.on("refresh", function () {
     console.log("IO Recieved: Refresh Tokens");
     setTimeout(function () {
       RefreshToyBox();
     }, 1000);
   });
 
-  socket.on("Fade One", function (e) {
+  socket?.on("Fade One", function (e) {
     console.log("IO Recieved: Fade One");
     const group = e[0];
     const speed = e[1];
@@ -28,7 +27,7 @@ export function Register() {
     });
   });
 
-  socket.on("Fade All", function (e) {
+  socket?.on("Fade All", function (e) {
     console.log("IO Recieved: Fade All");
     const speed = e[0];
     const cycles = e[1];
@@ -42,7 +41,7 @@ export function Register() {
       FadePad(pad, color, speed, cycles);
     }
   });
-  socket.on("Color One", function (e) {
+  socket?.on("Color One", function (e) {
     console.log("IO Recieved: Color One");
     const pad = e[0];
     const color = e[1] + "80";
@@ -56,7 +55,7 @@ export function Register() {
     });
   });
 
-  socket.on("Color All", function (e) {
+  socket?.on("Color All", function (e) {
     console.log("IO Recieved: Color All");
     for (let i = 1; i <= 7; i++) {
       const pad = document.getElementById("toypad" + i);
@@ -69,7 +68,7 @@ export function Register() {
     }
   });
 
-  socket.on("Connection True", function (e) {
+  socket?.on("Connection True", function (e) {
     console.log("Connection Success Recieved");
 
     const statusOverlay = document.getElementById("status");

@@ -11,13 +11,13 @@ export function hook() {
   //Colors
   tp.hook(tp.CMD_COL, handleColorCommand);
   tp.hook(tp.CMD_FADE, handleFadeCommand);
+  tp.hook(tp.CMD_COLALL, handleColorAllCommand);
 
   ///NOT IMPLEMENTED///
   tp.hook(tp.CMD_FLASH, handleFlashCommand);
   tp.hook(tp.CMD_FADRD, handleFadeRandomCommand);
   tp.hook(tp.CMD_FADAL, handleFadeAllCommand);
   tp.hook(tp.CMD_FLSAL, handleFlashAllCommand);
-  tp.hook(tp.CMD_COLALL, handleColorAllCommand);
 
   ///DEBUG PURPOSES///
   tp.hook(tp.CMD_GETCOL, handleGetColorCommand);
@@ -37,7 +37,6 @@ export function hook() {
  * page 23 - Vehicle Upgrade Pt 1
  * page 26 - Vehicle Upgrades Pt 2
  * **When writing the pages requested for the write are sometimes offset by 12, not sure why.
- * //TODO: Find out why they are sometimes offset by 12
  * This data is copied to the JSON for future use.
  */
 function handleWriteCommand(req: any, res: any) {
@@ -61,7 +60,6 @@ function handleWriteCommand(req: any, res: any) {
       ["name", name],
       ["type", Tagtypes.Vehicle],
     ]);
-    //writeVehicleData(uid, "uid", tp.randomUID())
   }
   //Vehicle uprades are stored in Pages 23 & 25
   else if (page == 23 || page == 35)

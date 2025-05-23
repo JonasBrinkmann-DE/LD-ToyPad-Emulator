@@ -1,9 +1,0 @@
-Routes:
-
-DELETE remove
-Recieve the current index from toytags.json instead from dom.
-
-POST place
-Replaced with socket event:
-place(uid: string, index: number, position: number)
-

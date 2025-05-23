@@ -1,20 +1,18 @@
 @import "toypad.css";
 @import "toybox.css";
 @import "dialogs/creationDialog.css";
+@import "root.css";
 
-:root {
-    --box-width: 9em;
-    --box-padding: 12px;
-    --box-border: 1px;
-    --box-total: calc(var(--box-width) + 2 * var(--box-padding) + 2 * var(--box-border));
-    --middle-box-width: 9.75em;
-    --detail-color-00: rgb(53, 53, 53);
-    --detail-color-01: rgb(61, 61, 61);
+li::marker {
+    display: none;
+    content: "";
 }
 
 html {
     display: table;
-    margin: auto;
+    margin: 0;
+    padding: 0;
+    height: 100%;
     text-align: center;
 }
 
@@ -23,33 +21,38 @@ body {
     flex-direction: column;
     align-items: center;
     margin: 0%;
+    min-height: 100vh;
     vertical-align: middle;
     text-align: center;
     font-family: sans-serif;
 }
 
 header {
-    background-color: rgb(26, 26, 26);
-    color: white;
-    height: 3.4rem;
-
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    background-color: rgb(26, 26, 26);
     width: 100vw;
+    height: 3.4rem;
+    color: white;
 }
 
 footer {
-    font-size: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10em;
+    background-color: rgb(26, 26, 26);
+    height: 3.4rem;
+    color: white;
 }
 
 #toypad {
     align-content: end;
     background-color: #49494b;
     background-image: linear-gradient(#49494b, #424244);
-    width: fit-content;
     padding-top: 4em;
-
+    width: fit-content;
     height: calc(var(--box-width) * 3);
 }
 
@@ -146,7 +149,7 @@ button:active {
     margin: auto;
     border-radius: 0.5rem;
     box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
-    background-color: #efefef;
+    background-color: var(--toybox-bg);
     padding: 1em;
     min-height: 100px;
 }
@@ -174,12 +177,12 @@ button:active {
 #shadow {
     position: absolute;
     top: 0;
+    right: 0;
     bottom: 0;
     left: 0;
-    right: 0;
+    z-index: 5;
     background-color: rgba(0, 0, 0, 0.314);
     height: 100vh;
-    z-index: 5;
 }
 
 .box {
@@ -221,9 +224,9 @@ button:active {
     position: relative;
     z-index: 3;
     border: 1px solid transparent;
-    border-radius: 0.5rem;
+    border-radius: 1rem;
     box-shadow: #00000033 0 4px 12px;
-    background-color: #ffa726;
+    background-color: #f09713;
     cursor: grab;
     width: 7em;
     height: 7em;
@@ -271,14 +274,14 @@ button:active {
 }
 
 #banner {
+    margin: 0;
+    border-radius: 0;
     background-color: #161925;
     padding: 1em;
     width: 100vw;
     text-align: start;
     line-height: 2em;
     color: #e8eaf6;
-    border-radius: 0;
-    margin: 0;
 }
 
 #status {
@@ -343,11 +346,9 @@ button:active {
     height: 0px;
 }
 
-
-
 #layout-controller {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
 }
 
@@ -366,17 +367,6 @@ button:active {
     display: block;
 }
 
-footer {
-    background-color: rgb(26, 26, 26);
-    color: white;
-    height: 3.4rem;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10em;
-}
-
 footer p {
     margin-left: 0.5em;
 }
@@ -387,12 +377,12 @@ footer div {
 
 footer button {
     display: grid;
-    justify-content: center;
     align-content: center;
+    justify-content: center;
+    margin-right: 8px;
     width: 2.5em;
     height: 2.5em;
-    margin-right: 8px;
-
+    color: #24292f;
 }
 
 footer button img {
@@ -400,18 +390,23 @@ footer button img {
     padding: 0;
 }
 
+#themeSwitcher img {
+    width: 12px;
+}
+
 header button {
-    margin-left: auto;
     margin-right: 1.7rem;
+    margin-left: auto;
+}
+
+#toybox-column {
+    width: calc(100% - 5em);
+    max-width: 1200px;
 }
 
 @media screen and (max-width: 1556px) {
     body {
         overflow-x: hidden;
-    }
-
-    #layout-controller {
-        flex-direction: column;
     }
 
     #toybox-tokens {
@@ -430,9 +425,5 @@ header button {
 
     #toypad-column {
         flex-basis: 0;
-    }
-
-    #toybox-column {
-        width: calc(100% - 5em);
     }
 }

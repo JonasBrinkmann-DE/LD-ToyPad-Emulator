@@ -77,12 +77,11 @@ function onDropToybox(e) {
   });
 }
 function onDropToypad(e) {
-  console.log("DROP TOYPAD");
-  var parentBox = e.item.closest(".box");
-  var newPadNum = parentBox.getAttribute("pad-num");
-  var newPadIndex = parentBox.getAttribute("pad-index");
-
-  UpdateToyPadPosition(e.item.getAttribute("data-uid"), newPadNum, newPadIndex);
+  const parent = e.to;
+  const newPadNum = parent.getAttribute("pad-num");
+  const newPadIndex = parent.getAttribute("pad-index");
+  const uid = e.item.getAttribute("data-uid");
+  UpdateToyPadPosition(uid, newPadNum, newPadIndex);
 
   ApplyFilters();
 }
@@ -96,39 +95,5 @@ function onMove(e) {
   }
   if (target.children.length >= parseInt(limit) && e.from !== target) {
     return false;
-  }
-}
-function onReceive(e) {
-  const id = e.item.getAttribute("id");
-  if (id == "remove-tokens") {
-  } else if (
-    this.getAttribute("pad-num") == undefined ||
-    (this.children("li").length > 1 && id != "toybox-tokens")
-  ) {
-    //$(ui.sender).sortable("cancel");
-    return false;
-  }
-
-  //If moving to the Toy Pox, remove tag from the game.
-  else if (id == "toybox-tokens") {
-  }
-  //If moving from the Toy Box, place tag in the game.
-  else if (e.sender.getAttribute("pad-num") == -1) {
-    //event.sender.sortable("cancel");
-
-    const uid = e.item.getAttribute("data-uid");
-    const position = this.getAttribute("pad-num");
-    const index = this.getAttribute("pad-index");
-
-    Place(uid, index, position);
-    return false;
-  }
-  //If moving between spaces on the Toy Pad, remove from previous space and place in new one.
-  else {
-    UpdateToyPadPosition(
-      e.item.getAttribute("data-uid"),
-      this.getAttribute("pad-num"),
-      this.getAttribute("pad-index")
-    );
   }
 }

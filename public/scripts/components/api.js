@@ -37,11 +37,7 @@ export async function RefreshToyBox() {
   const boxes = document.querySelectorAll(".box");
 
   boxes?.forEach(function (box) {
-    while (
-      box.lastChild &&
-      box.lastChild.id !== "deleteToken" &&
-      box.lastChild.id !== "colorToken"
-    ) {
+    while (box.lastChild) {
       box.removeChild(box.lastChild);
     }
   });

@@ -1,4 +1,4 @@
-import { FadePad, LoadCharactermap, LoadTokenmap } from "./components/utils.js";
+import { LoadCharactermap, LoadTokenmap } from "./components/utils.js";
 import {
   Register as RegisterIOEvents,
   socket,
@@ -6,6 +6,7 @@ import {
 import { CreateItemHtml, ToyboxTokens } from "./components/dom.js";
 import { SetupFilterInputs } from "./components/filters.js";
 import { createSortables } from "./components/dragdrop.js";
+
 export const MousePosition = { x: -1, y: -1 };
 export const Characters = await LoadCharactermap();
 export const Vehicles = await LoadTokenmap();

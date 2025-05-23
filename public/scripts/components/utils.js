@@ -88,8 +88,8 @@ export function FilterById(jsonObject, id) {
   })[0];
 }
 export function FilterByName(jsonObject, name) {
-  return jsonObject.filter(function (jsonObject) {
-    return jsonObject["name"] == name;
+  return jsonObject.filter(function (entry) {
+    return entry["name"] == name;
   })[0];
 }
 export function GetGroupIndex(padIndex) {

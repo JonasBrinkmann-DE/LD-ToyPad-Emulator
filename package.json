@@ -11,7 +11,7 @@
   "author": "Berny23",
   "license": "MIT",
   "dependencies": {
-    "@types/express": "^5.0.1",
+    "@types/express": "5.0.2",
     "express": "5.1.0",
     "node-ld": "https://github.com/Berny23/node-ld.git",
     "socket.io": "^4.8.1",
