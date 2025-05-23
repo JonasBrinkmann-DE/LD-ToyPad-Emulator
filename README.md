@@ -18,9 +18,9 @@ Allows you to connect an emulated Toy Pad to your PC or video-game console.
 
 ## Demo
 
-![image](https://user-images.githubusercontent.com/36038743/151242123-8dee84e5-6276-4ac2-ba58-c09bff121419.png)
-
+![screencapture](https://github.com/user-attachments/assets/50e20347-fcc8-4284-a88d-eb49c7ed1ebd)
 ## Videos
+
 
 - First demo video on Cemu emulator: https://www.youtube.com/watch?v=7CBa9u2ip-Y
 
