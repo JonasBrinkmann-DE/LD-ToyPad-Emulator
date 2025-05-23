@@ -43,11 +43,44 @@ export async function LoadTokenmap() {
 export async function DownloadToytags() {
   return await (await fetch("json/toytags.json")).json();
 }
-export function FadePad(element, color, speed, cycles) {
-  //TODO: Don't ignore speed and cycles
-  //If cycles == 0xff   => fade until new command
-  //If cycles == 0      =>ignore
-  $(element).animate().css({ backgroundColor: color });
+export function FadePad(element, color, ticks, cycles) {
+  if (cycles === 0) return;
+
+  const currentColor = GetColor(element);
+
+  if (cycles === 255) {
+    cycles = Infinity;
+  }
+  CancelAllAnimations(element);
+  element
+    .animate([{ backgroundColor: currentColor }, { backgroundColor: color }], {
+      duration: ticks * 20,
+      iterations: cycles,
+      direction: "alternate",
+    })
+    .finished.then(() => {
+      element.style.backgroundColor = color;
+    });
+}
+
+export function FlashPad(element, tickOn, tickOff, ticks, color) {
+  throw new Error("NOT IMPLEMENTED");
+  if (cycles === 0) return;
+
+  const currentColor = GetColor(element);
+
+  if (cycles === 255) {
+    cycles = Infinity;
+  }
+
+  CancelAllAnimations(element);
+}
+
+export function CancelAllAnimations(element) {
+  element.getAnimations().forEach((anim) => anim.cancel());
+}
+export function GetColor(element) {
+  return getComputedStyle(element).backgroundColor;
 }
 export function FilterById(jsonObject, id) {
   return jsonObject.filter(function (jsonObject) {
