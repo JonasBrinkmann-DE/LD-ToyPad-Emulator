@@ -1,6 +1,6 @@
 import { Place, RefreshToyBox, UpdateToyPadPosition } from "./api.js";
 import { DeleteBox, EditBox, ToyboxTokens } from "./dom.js";
-import { MousePosition } from "./entry.js";
+import { MousePosition } from "../app.js";
 import { ApplyFilters } from "./filters.js";
 import { socket } from "./socketHandler.js";
 

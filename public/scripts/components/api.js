@@ -22,12 +22,10 @@ export async function CreateVehicle(id) {
 export async function CreateCharacter(id) {
   return (await POST("/tokens/character", { id: id })).ok;
 }
-export function DoesFileExist(url) {
+export async function DoesFileExist(url) {
   try {
-    const http = new XMLHttpRequest();
-    http.open("HEAD", url, false);
-    http.send();
-    return http.status != 404;
+    const response = await fetch(url, { method: "HEAD" });
+    return response.status !== 404;
   } catch {
     return false;
   }
@@ -48,17 +46,20 @@ export async function RefreshToyBox() {
     }
   });
 
-  data?.forEach((tag) => {
+  data?.forEach(async (tag) => {
     console.log(`ID: ${tag.id} UID: ${tag.uid}`);
 
     if (tag.index === -1) {
       if (tag.name !== "N/A") {
-        ToyboxTokens?.insertAdjacentHTML("beforeend", CreateItemHtml(tag));
+        ToyboxTokens?.insertAdjacentHTML(
+          "beforeend",
+          await CreateItemHtml(tag)
+        );
       }
     } else {
       const pad = document.getElementById(`toypad${tag.index}`);
 
-      pad?.insertAdjacentHTML("beforeend", CreateItemHtml(tag));
+      pad?.insertAdjacentHTML("beforeend", await CreateItemHtml(tag));
     }
 
     ApplyFilters();

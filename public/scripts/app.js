@@ -1,8 +1,11 @@
-import { FadePad, LoadCharactermap, LoadTokenmap } from "./utils.js";
-import { Register as RegisterIOEvents, socket } from "./socketHandler.js";
-import { CreateItemHtml, ToyboxTokens } from "./dom.js";
-import { SetupFilterInputs } from "./filters.js";
-import { createSortables } from "./dragdrop.js";
+import { FadePad, LoadCharactermap, LoadTokenmap } from "./components/utils.js";
+import {
+  Register as RegisterIOEvents,
+  socket,
+} from "./components/socketHandler.js";
+import { CreateItemHtml, ToyboxTokens } from "./components/dom.js";
+import { SetupFilterInputs } from "./components/filters.js";
+import { createSortables } from "./components/dragdrop.js";
 export const MousePosition = { x: -1, y: -1 };
 export const Characters = await LoadCharactermap();
 export const Vehicles = await LoadTokenmap();
@@ -17,11 +20,11 @@ function init() {
   socket?.emit("connectionStatus");
   socket?.emit("syncToyPad");
 }
-function createTestingData(char, veh) {
+async function createTestingData(char, veh) {
   for (let i = 0; i < char; i++) {
     ToyboxTokens?.insertAdjacentHTML(
       "beforeend",
-      CreateItemHtml({
+      await CreateItemHtml({
         name: "testing",
         uid: "012345678900000",
         id: i + 1,
@@ -32,7 +35,7 @@ function createTestingData(char, veh) {
   for (let i = 0; i < veh; i++) {
     ToyboxTokens?.insertAdjacentHTML(
       "beforeend",
-      CreateItemHtml({
+      await CreateItemHtml({
         name: "testing",
         uid: "012345678900000",
         id: i + 1000,

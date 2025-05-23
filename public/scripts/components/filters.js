@@ -10,7 +10,7 @@ import {
   WorldFilter,
   WorldList,
 } from "./dom.js";
-import { Characters, Vehicles } from "./entry.js";
+import { Characters, Vehicles } from "../app.js";
 import { GetUniqueSortedValues } from "./utils.js";
 
 const IGNORED_WORLDS = ["15", "16", "17", "18", "19", "20", "N/A", "Unknown"];

@@ -1,5 +1,5 @@
 import { DoesFileExist } from "./api.js";
-import { Characters, Vehicles } from "./entry.js";
+import { Characters, Vehicles } from "../app.js";
 import { FilterById } from "./utils.js";
 
 export const ToyboxTokens = document.getElementById("toybox-tokens");
@@ -38,7 +38,7 @@ export function GetAllFilterOption() {
 export function GetAllItems() {
   return document.querySelectorAll(".item");
 }
-export function CreateItemHtml(item) {
+export async function CreateItemHtml(item) {
   const itemData = FilterById(
     item.type == "character" ? Characters : Vehicles,
     item.id
@@ -47,7 +47,9 @@ export function CreateItemHtml(item) {
   let content = `<h3>${itemData.name}</h3>`;
   const path = "images/" + itemData.id;
   const url = location.href + "/../" + path;
-  if (DoesFileExist(url)) {
+
+  const doesFileExist = await DoesFileExist(url);
+  if (doesFileExist) {
     content = `<img src="${path}" alt="${itemData.name}" class="preview">`;
   }
 
