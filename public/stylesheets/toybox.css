@@ -1,0 +1,77 @@
+#toybox-tokens,
+#toybox-column {
+    flex: 1;
+}
+
+#toybox-tokens .item.filtered {
+    display: none !important;
+}
+
+#toybox-tokens {
+    position: relative;
+    margin: 0;
+    margin-right: 0.5em;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: #b4b2b2;
+    padding: 0;
+    height: 45vh;
+    overflow-y: scroll;
+    list-style-type: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#toybox-tokens li {
+    float: left;
+    margin: 0.5em;
+}
+
+#drag-action-container {
+    width: 9rem;
+    display: grid;
+}
+
+.drag-action {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    background-color: #50C9CE;
+    color: #FFFBFE;
+    border-radius: 0.5em;
+    margin-bottom: 0.8em;
+    box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.drag-action:last-of-type {
+    background-color: #FF1053;
+    margin: 0;
+}
+
+.drag-action img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1rem;
+}
+
+#click-action-container {
+    margin-left: 8px;
+    border: none;
+    background-color: rgb(211, 208, 208);
+    padding: 10px 5px;
+    border-radius: 0.5em;
+
+}
+
+#click-action-container button {
+    height: 42px;
+    padding: 0;
+    background-color: #0d7ab9;
+    color: white;
+    aspect-ratio: 1 / 1;
+    border-radius: 0.7em;
+}

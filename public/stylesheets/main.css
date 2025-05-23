@@ -1,4 +1,5 @@
 @import "toypad.css";
+@import "toybox.css";
 @import "dialogs/creationDialog.css";
 
 :root {
@@ -62,17 +63,8 @@ main {
     border-radius: 0 !important;
 }
 
-#toybox-column,
-#toybox-tokens {
-    flex: 1;
-}
-
 .toolbox {
     flex-basis: 154px;
-}
-
-#toypad-column {
-    flex-basis: 962px;
 }
 
 #header {
@@ -185,7 +177,6 @@ button:active {
 
 .box {
     transition: background-color 0.25s ease-out;
-    z-index: 1;
     margin: 0;
     border: solid var(--box-border) var(--detail-color-01);
     border-radius: 0.5rem;
@@ -236,10 +227,6 @@ button:active {
     background-color: #994100;
 }
 
-#toybox-tokens .item.filtered {
-    display: none !important;
-}
-
 .item:hover,
 .item:focus,
 .item:active,
@@ -277,7 +264,7 @@ button:active {
 }
 
 #banner {
-    background-color: #26418f;
+    background-color: #161925;
     padding: 1em;
     width: 100vw;
     text-align: start;
@@ -349,24 +336,7 @@ button:active {
     height: 0px;
 }
 
-#toybox-tokens {
-    position: relative;
-    margin: 0;
-    margin-right: 0.5em;
-    border-radius: 0.5rem;
-    border: 1px solid rgb(128, 128, 128);
-    background-color: #bdbdbd;
-    padding: 0;
-    height: 45vh;
-    min-height: auto;
-    overflow-y: scroll;
-    list-style-type: none;
-}
 
-#toybox-tokens li {
-    float: left;
-    margin: 0.5em;
-}
 
 #layout-controller {
     display: flex;

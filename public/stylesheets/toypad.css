@@ -70,7 +70,6 @@
     border-radius: 100%;
     width: var(--middle-box-width);
     height: var(--middle-box-width);
-    z-index: 2;
 }
 
 #toypad3 {
