@@ -10,8 +10,9 @@
 
 <html>
   <head>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>Toy Pad Emulator for Lego Dimensions | v1.4.1</title>
+    <title>Toy Pad Emulator</title>
     <link rel="stylesheet" href="stylesheets/main.css" />
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <script src="libs/Sortable.min.js"></script>
@@ -20,8 +21,8 @@
   </head>
 
   <body>
-    <div id="shadow" hidden></div>
-    <dialog id="creation-screen">
+    <dialog id="creation-dialog">
+      <div id="shadow"></div>
       <div id="search-area">search area</div>
       <div id="area-wrapper">
         <div id="content-area">content</div>
@@ -30,7 +31,7 @@
       <div>notes</div>
     </dialog>
     <main>
-      <div id="banner" class="container">
+      <div id="banner" class="container" hidden>
         <b
           >If you encounter a token that is not responding, move it to the toy
           box and then back to the Toy Pad.</b
@@ -57,21 +58,21 @@
                   class="box"
                   pad-num="2"
                   pad-index="1"
-                  color="white"
+                  max-items="1"
                 ></div>
                 <div
                   id="toypad2"
                   class="box"
                   pad-num="1"
                   pad-index="2"
-                  color="white"
+                  max-items="1"
                 ></div>
                 <div
                   id="toypad3"
                   class="box"
                   pad-num="3"
                   pad-index="3"
-                  color="white"
+                  max-items="1"
                 ></div>
               </div>
               <div class="drop-targets">
@@ -80,28 +81,28 @@
                   class="box"
                   pad-num="2"
                   pad-index="4"
-                  color="white"
+                  max-items="1"
                 ></div>
                 <div
                   id="toypad5"
                   class="box"
                   pad-num="2"
                   pad-index="5"
-                  color="white"
+                  max-items="1"
                 ></div>
                 <div
                   id="toypad6"
                   class="box"
                   pad-num="3"
                   pad-index="6"
-                  color="white"
+                  max-items="1"
                 ></div>
                 <div
                   id="toypad7"
                   class="box"
                   pad-num="3"
                   pad-index="7"
-                  color="white"
+                  max-items="1"
                 ></div>
               </div>
             </div>
@@ -110,46 +111,29 @@
         <div id="toybox-column" class="flex-container layout-column">
           <div id="token-box" class="flex-container">
             <ul id="toybox-tokens" class="box" pad-num="-1"></ul>
+            <div id="drag-action-container">
+              <div class="drag-action" id="edit-action" max-items="2">
+                <img src="ressources/edit.svg" alt="Edit" />
+              </div>
+              <div class="drag-action" id="delete-action" max-items="2">
+                <img src="ressources/delete.svg" alt="Delete" />
+              </div>
+            </div>
+            <div id="click-action-container">
+              <button type="button" id="open-creation-dialog">
+                <img src="ressources/add.svg" alt="" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
-      <div id="tag-creation-container">
-        <form id="character-select" class="container">
-          <label>
-            <input
-              list="character-list"
-              id="character-name"
-              onfocus="this.value=''"
-              placeholder="Select a character"
-            />
-            <datalist id="character-list"></datalist>
-          </label>
-          <br />
-          <button type="submit">Create</button>
-        </form>
-
-        <form id="vehicle-select" class="container">
-          <label>
-            <input
-              list="vehicle-list"
-              id="vehicle-name"
-              onfocus="this.value=''"
-              placeholder="Select a vehicle"
-            />
-            <datalist id="vehicle-list"></datalist>
-          </label>
-          <br />
-          <button type="submit">Create</button>
-        </form>
-      </div>
-      <br />
 
       <script src="scripts/footer.js"></script>
       <footer>
         <p>Copyright © 2023 Berny23</p>
         <div>
-          <button onclick="OpenCopyright()">©</button>
-          <button onclick="OpenGithub()">
+          <button type="button" onclick="OpenCopyright()">©</button>
+          <button type="button" onclick="OpenGithub()">
             <img src="ressources/github-mark.svg" alt="" width="16px" />
           </button>
         </div>

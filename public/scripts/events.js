@@ -1,6 +1,8 @@
 import {
   CharacterName,
   CharacterSelect,
+  CreationDialog,
+  OpenCreationDialogButton,
   VehicleName,
   VehicleSelect,
 } from "./dom.js";
@@ -8,6 +10,7 @@ import { ApplyFilters, ClearFilterInputs, ClearFilters } from "./filters.js";
 import { Characters, Vehicles } from "./entry.js";
 import { socket } from "./socketHandler.js";
 import { FilterByName } from "./utils.js";
+import { CreateCharacter, CreateVehicle } from "./api.js";
 
 const filterInput = document.querySelector(".filter-input");
 const worldFilter = document.querySelector("#tag-world-filter");
@@ -28,7 +31,11 @@ function OnFilterClick() {
 }
 const syncButton = document.querySelector("#sync");
 syncButton?.addEventListener("click", () => {
-  socket.emit("syncToyPad");
+  socket?.emit("syncToyPad");
+});
+OpenCreationDialogButton?.addEventListener("click", () => {
+  CreationDialog.showPopover();
+  console.log("click!");
 });
 
 VehicleSelect?.addEventListener("submit", function (e) {
@@ -36,28 +43,20 @@ VehicleSelect?.addEventListener("submit", function (e) {
 
   const name = VehicleName?.value;
   const id = FilterByName(Vehicles, name).id;
-  fetch("/tokens/vehicle", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ id: id }),
-  }).then(() => {
+
+  CreateVehicle(id).then(() => {
     VehicleSelect?.reset();
-    socket.emit("syncToyPad");
+    socket?.emit("syncToyPad");
   });
 });
 CharacterSelect?.addEventListener("submit", function (e) {
   e.preventDefault();
 
   const name = CharacterName?.value;
-  fetch("/tokens/character", {
-    method: "POST",
-    body: JSON.stringify({ id: FilterByName(Characters, name).id }),
-  }).then(() => {
-    setTimeout(() => {
-      socket.emit("syncToyPad");
-      CharacterSelect?.reset();
-    }, 150);
+  const id = FilterByName(Characters, name).id;
+
+  CreateCharacter(id).then(() => {
+    CharacterSelect?.reset();
+    socket?.emit("syncToyPad");
   });
 });

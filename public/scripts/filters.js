@@ -56,23 +56,23 @@ function collectAbilities() {
 }
 
 export function ApplyFilters() {
-  ClearFilters();
-  ApplyNameFilter();
-  ApplyWorldFilter();
-  ApplyAbilityFilter();
+  //ClearFilters();
+  //ApplyNameFilter();
+  //ApplyWorldFilter();
+  //ApplyAbilityFilter();
 }
 export function ApplyWorldFilter() {
   const world = WorldFilter?.value;
   if (world != "") {
     const options = GetAllFilterOptions();
-    options.forEach((option) => {
+    options?.forEach((option) => {
       if (option.getAttribute("data-world") != world) {
         option.disabled = true;
       }
     });
 
     const items = GetAllItems();
-    items.forEach(function (item) {
+    items?.forEach(function (item) {
       if (item.getAttribute("data-world") != world) {
         item.classList.add("filtered");
       }
@@ -84,7 +84,7 @@ export function ApplyAbilityFilter() {
   const ability = AbilityFilter?.value;
   if (ability !== "") {
     const options = GetAllFilterOptions();
-    options.forEach((option) => {
+    options?.forEach((option) => {
       if (
         !option.getAttribute("data-abilities")?.split(",").includes(ability)
       ) {
@@ -94,7 +94,7 @@ export function ApplyAbilityFilter() {
 
     const items = GetAllItems();
 
-    items.forEach((item) => {
+    items?.forEach((item) => {
       if (!item.getAttribute("data-abilities")?.split(",").includes(ability)) {
         item.classList.add("filtered");
       }
@@ -117,12 +117,12 @@ export function ClearFilterInputs() {
 export function ClearFilters() {
   const options = GetAllFilterOptions();
 
-  options.forEach((option) => {
+  options?.forEach((option) => {
     option.disabled = false;
   });
   const items = GetAllItems();
 
-  items.forEach((item) => {
+  items?.forEach((item) => {
     item.classList.remove("filtered");
   });
 }
@@ -137,25 +137,25 @@ function createSingleElement(item) {
 }
 
 export function SetupFilterInputs() {
-  Characters.forEach((item) => {
+  Characters?.forEach((item) => {
     if (item.name != "Unknown" || item.name.includes("(unreleased)")) {
       CharacterList?.appendChild(createSingleElement(item));
     }
   });
 
-  Vehicles.foreEach((vehicles) => {
+  Vehicles?.forEach((vehicles) => {
     if (vehicles.name != "Unknown")
       VehicleList?.appendChild(createSingleElement(vehicles));
   });
 
   const worlds = collectWorlds(true);
 
-  worlds.forEach((world) => {
+  worlds?.forEach((world) => {
     if (world != "Unknown") WorldList?.append('<option value="' + world + '">');
   });
   const abilities = collectAbilities();
 
-  abilities.forEach(function (ability) {
+  abilities?.forEach(function (ability) {
     if (ability != "Unknown")
       AbilityList?.append('<option value="' + ability + '">');
   });
@@ -167,7 +167,7 @@ export function ApplyNameFilter() {
   const items = GetAllItems();
 
   let name;
-  items.forEach((item) => {
+  items?.forEach((item) => {
     name = item.value.toLowerCase();
     if (!name.includes(text)) {
       item.classList.add("filtered");

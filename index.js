@@ -20,10 +20,7 @@ const io = new Server(server);
 //File where tag info will be saved
 const toytagsPath = path.join(__dirname, "server/json/toytags.json");
 const tokenmapPath = path.join(__dirname, "server/json/tokenmap.json");
-const charactersMapPath = path.join(
-  __dirname,
-  "server/json/charactermap.json"
-);
+const charactersMapPath = path.join(__dirname, "server/json/charactermap.json");
 const tp = new ld.ToyPadEmu();
 tp.registerDefaults();
 
@@ -175,7 +172,7 @@ function writeJSONBundle(uid, bundle) {
     const entry = dataset[i];
 
     if (entry.uid == uid) {
-      bundle.forEach((data) => {
+      bundle?.forEach((data) => {
         entry[data.key] = data.value;
       });
       break;
@@ -190,7 +187,7 @@ function writeJSONBundle(uid, bundle) {
 function initializeToyTagsJSON() {
   const data = fs.readFileSync(toytagsPath, "utf8");
   const dataset = JSON.parse(data);
-  dataset.forEach((db) => {
+  dataset?.forEach((db) => {
     db.index = "-1";
   });
   fs.writeFileSync(toytagsPath, JSON.stringify(dataset, null, 4));
@@ -652,7 +649,7 @@ io.on("connection", (socket) => {
       console.log("Token 404.");
       return;
     }
-	  
+
     dataset.splice(index, 1);
     fs.writeFile(toytagsPath, JSON.stringify(dataset, null, 4), (err) => {
       if (err) {

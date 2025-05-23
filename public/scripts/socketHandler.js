@@ -1,9 +1,10 @@
 import { RefreshToyBox } from "./api.js";
 import { FadePad, GetGroupIndex, GetGroupMembers } from "./utils.js";
 
-export const socket = io();
-
+export const socket = undefined;
+//export const socket = io();
 export function Register() {
+  return;
   socket.on("refresh", function () {
     console.log("IO Recieved: Refresh Tokens");
     setTimeout(function () {
@@ -20,7 +21,7 @@ export function Register() {
     const pads = GetGroupMembers(group);
 
     let padElement;
-    pads.forEach((index) => {
+    pads?.forEach((index) => {
       padElement = document.getElementById("toypad" + index);
 
       FadePad(padElement, color, speed, cycles);
@@ -49,9 +50,8 @@ export function Register() {
     const pads = GetGroupMembers(pad);
 
     let padElement;
-    pads.forEach((element) => {
+    pads?.forEach((element) => {
       padElement = document.getElementById("toypad" + element);
-      padElement.setAttribute("color", e[1]);
       padElement.style.backgroundColor = color;
     });
   });
