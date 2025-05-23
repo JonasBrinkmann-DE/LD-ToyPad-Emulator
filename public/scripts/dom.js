@@ -19,6 +19,13 @@ export const VehicleSelect = document.getElementById("vehicle-select");
 export const CharacterName = document.getElementById("character-name");
 export const VehicleName = document.getElementById("vehicle-name");
 
+export const OpenCreationDialogButton = document.getElementById(
+  "open-creation-dialog"
+);
+export const CreationDialog = document.getElementById("creation-dialog");
+
+export const EditBox = document.getElementById("edit-action");
+export const DeleteBox = document.getElementById("delete-action");
 export function GetAllBoxes() {
   return document.getElementsByClassName("box");
 }
@@ -32,16 +39,15 @@ export function GetAllItems() {
   return document.querySelectorAll(".item");
 }
 export function CreateItemHtml(item) {
-  var itemData;
-
+  let itemData;
   if (item.type == "character") {
     itemData = FilterById(Characters, item.id);
   } else {
     itemData = FilterById(Vehicles, item.id);
   }
 
-  var content = "<h3>" + itemData.name + "</h3>";
-  var path = "images/" + itemData.id;
+  let content = "<h3>" + itemData.name + "</h3>";
+  const path = "images/" + itemData.id;
   const url = location.href + "/../" + path;
   if (DoesFileExist(url)) {
     content =
