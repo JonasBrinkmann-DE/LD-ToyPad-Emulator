@@ -21,14 +21,51 @@
   </head>
 
   <body>
+    <div class="shadow" hidden></div>
     <dialog id="creation-dialog">
-      <div id="shadow"></div>
       <div id="search-area">search area</div>
       <div id="area-wrapper">
         <div id="content-area">content</div>
         <div id="filter-area">filters</div>
       </div>
       <div>notes</div>
+    </dialog>
+    <dialog id="edit-dialog">
+      <div id="edit-dialog-main" class="flex">
+        <div id="edit-dialog-image-area">
+          <img src="" alt="" />
+          404
+        </div>
+        <div>
+          <input type="text" placeholder="Batman" readonly disabled />
+          <div class="flex">
+            <label for="edit-dialog-id-box">ID:</label>
+            <input
+              type="text"
+              placeholder="1"
+              name="edit-dialog-id-box"
+              readonly
+              disabled
+            />
+            <label for="edit-dialog-type-box">Type:</label>
+            <input
+              type="text"
+              placeholder="Character"
+              name="edit-dialog-type-box"
+              readonly
+              disabled
+            />
+          </div>
+          <div class="flex">
+            <label for="edit-dialog-uid-box">UID: </label>
+            <input type="text" placeholder="01234567891234" />
+          </div>
+        </div>
+      </div>
+      <div class="flex">
+        <button type="reset" id="discardButton">Discard</button>
+        <button type="submit" id="saveButton">Save</button>
+      </div>
     </dialog>
     <main>
       <div id="banner" class="container" hidden>

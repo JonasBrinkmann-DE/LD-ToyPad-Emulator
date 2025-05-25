@@ -59,6 +59,7 @@
 
 #toypad1 {
     border-bottom-color: transparent;
+    padding-top: calc(var(--box-total) / 6);
 }
 
 #toypad2 {
@@ -74,6 +75,7 @@
 
 #toypad3 {
     border-bottom-color: transparent;
+    padding-top: calc(var(--box-total) / 6);
 }
 
 #toypad4 {

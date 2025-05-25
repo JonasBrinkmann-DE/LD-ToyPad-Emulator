@@ -35,10 +35,21 @@ export async function RefreshToyBox() {
   const data = await DownloadToytags();
 
   const boxes = document.querySelectorAll(".box");
-
+  const actions = document.querySelectorAll(".drag-action");
   boxes?.forEach(function (box) {
     while (box.lastChild) {
       box.removeChild(box.lastChild);
+    }
+  });
+  actions?.forEach(function (action) {
+    let i = 0;
+    while (action.children.length > i) {
+      const c = action.children[0];
+
+      if (c.getAttribute("data-uid")) {
+        action.removeChild(c);
+      }
+      i++;
     }
   });
 

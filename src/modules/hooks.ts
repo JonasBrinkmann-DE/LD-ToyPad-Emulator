@@ -1,6 +1,6 @@
 import { select, updateKey, updateKeys } from "utils/toytags";
 import { GetColor, RGBToHex } from "utils/conversion";
-import { io, setConnectionStatus, tp } from "bridge";
+import { io, setConnectionStatus, tp } from "modules/bridge";
 import { getAnyNameFromID } from "utils/tagUtils";
 import Tagtypes from "enums/Tagtypes";
 import Emits from "enums/Emits";
@@ -10,17 +10,19 @@ export function hook() {
 
   //Colors
   tp.hook(tp.CMD_COL, handleColorCommand);
-  tp.hook(tp.CMD_FADE, handleFadeCommand);
   tp.hook(tp.CMD_COLALL, handleColorAllCommand);
+
+  //Fade
+  tp.hook(tp.CMD_FADE, handleFadeCommand);
+  tp.hook(tp.CMD_FADAL, handleFadeAllCommand);
+  tp.hook(tp.CMD_GETCOL, handleGetColorCommand);
 
   ///NOT IMPLEMENTED///
   tp.hook(tp.CMD_FLASH, handleFlashCommand);
-  tp.hook(tp.CMD_FADRD, handleFadeRandomCommand);
-  tp.hook(tp.CMD_FADAL, handleFadeAllCommand);
   tp.hook(tp.CMD_FLSAL, handleFlashAllCommand);
+  tp.hook(tp.CMD_FADRD, handleFadeRandomCommand);
 
   ///DEBUG PURPOSES///
-  tp.hook(tp.CMD_GETCOL, handleGetColorCommand);
   tp.hook(tp.CMD_WAKE, handleWakeCommand);
 }
 

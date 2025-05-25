@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { createCharacter, getCharacterNameFromID } from "utils/tagUtils";
-import { tp } from "bridge";
+import { tp } from "modules/bridge";
 import { addEntry } from "utils/toytags";
 import { Toytag } from "interfaces/Toytag";
 import Tagtypes from "enums/Tagtypes";

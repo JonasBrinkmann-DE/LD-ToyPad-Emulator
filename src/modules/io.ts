@@ -1,9 +1,9 @@
 import { Socket } from "socket.io";
-import { isConnectedToGame, tp } from "bridge";
+import { isConnectedToGame, tp } from "modules/bridge";
 import { deleteEntry, select, updateKey } from "utils/toytags";
 import Emits from "enums/Emits";
 import { Server } from "http";
-import { createCharacter, createVehicle } from "./utils/tagUtils";
+import { createCharacter, createVehicle } from "utils/tagUtils";
 import { InitializeToyTagsJSON } from "index";
 
 //TODO: Implement a feedback system for io requests

@@ -1,24 +1,18 @@
 import http from "http";
-import app from "app";
+import app from "modules/app";
 import { backup, unplaceAll, validate } from "utils/toytags";
-import { io, setIO, tp } from "bridge";
-import { setupSocket } from "io";
-import { hook } from "hooks";
+import { io, setIO, tp } from "modules/bridge";
+import { setupSocket } from "modules/io";
+import { hook } from "modules/hooks";
 import Emits from "enums/Emits";
-import { loadConfig } from "config";
-import { IConfig } from "interfaces/IConfig";
 
 function init() {
-  const config: IConfig = loadConfig();
-  const port = config.port || 80;
   if (!validate()) {
     console.error("FATAL: Toytags.json does not contain valid JSON!");
     process.exit(1);
     return;
   }
-  if (config.backupToytagsOnStart) {
-    backup();
-  }
+  backup();
 
   tp.registerDefaults();
   const server = http.createServer(app);
@@ -30,7 +24,7 @@ function init() {
 
   InitializeToyTagsJSON();
 
-  server.listen(port, () => console.log(`Server running on port ${port}`));
+  server.listen(80, () => console.log(`Server running on port 80`));
 }
 
 export function InitializeToyTagsJSON() {

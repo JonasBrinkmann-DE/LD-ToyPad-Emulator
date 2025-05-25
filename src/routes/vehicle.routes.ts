@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 
-import { tp } from "bridge";
+import { tp } from "modules/bridge";
 import { addEntry } from "utils/toytags";
 import { createVehicle, getTokenNameFromID } from "utils/tagUtils";
 import { Toytag } from "interfaces/Toytag";

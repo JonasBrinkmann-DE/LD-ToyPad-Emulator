@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { tp } from "bridge";
+import { tp } from "modules/bridge";
 import { select, updateKey } from "utils/toytags";
 
 const router = express.Router();

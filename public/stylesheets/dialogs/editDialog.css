@@ -1,0 +1,41 @@
+#edit-dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999999;
+    background-color: white;
+    border: 1px solid rgb(82, 80, 80);
+    padding: 3rem 2rem 1rem 2rem;
+}
+
+#edit-action #edit-dialog img {
+    margin: 0;
+}
+
+#edit-dialog-main {
+    margin: 0 auto;
+    margin-left: auto;
+    margin-bottom: 4rem;
+}
+
+#discardButton {
+    margin-left: auto;
+    margin-right: 8px;
+}
+
+.flex {
+    display: flex;
+}
+
+#edit-dialog-image-area {
+    justify-content: center;
+    align-content: center;
+    aspect-ratio: 1 / 1;
+    height: 140px;
+    margin-right: 2rem;
+    color: rgb(121, 121, 121);
+    background-color: rgb(235, 235, 235);
+    border: 1px solid rgb(73, 72, 72);
+    font-weight: bolder;
+}

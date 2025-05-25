@@ -169,7 +169,7 @@ Allows you to connect an emulated Toy Pad to your PC or video-game console.
    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-   nvm install 11
+   nvm install 22
    sudo setcap cap_net_bind_service=+ep `readlink -f \`which node\``
    npm install --global node-gyp@8.4.1
    npm config set node_gyp $(npm prefix -g)/lib/node_modules/node-gyp/bin/node-gyp.js

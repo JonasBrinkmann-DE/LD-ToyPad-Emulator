@@ -1,6 +1,7 @@
 @import "toypad.css";
 @import "toybox.css";
 @import "dialogs/creationDialog.css";
+@import "dialogs/editDialog.css";
 @import "root.css";
 
 li::marker {
@@ -174,7 +175,7 @@ button:active {
     margin-right: 2em;
 }
 
-#shadow {
+.shadow {
     position: absolute;
     top: 0;
     right: 0;

@@ -1,11 +1,7 @@
 import { Place, RefreshToyBox, UpdateToyPadPosition } from "./api.js";
 import { DeleteBox, EditBox, ToyboxTokens } from "./dom.js";
-import { MousePosition } from "../app.js";
 import { ApplyFilters } from "./filters.js";
 import { socket } from "./socketHandler.js";
-
-const DRAG_OFFSET_X = 20;
-const DRAG_OFFSET_Y = 0;
 
 export function createSortables() {
   new Sortable(DeleteBox, {
