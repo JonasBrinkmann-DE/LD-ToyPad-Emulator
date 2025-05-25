@@ -6,7 +6,9 @@
   "main": "build/index.js",
   "scripts": {
     "start": "node build/index.js",
-    "build": "tsc"
+    "build": "tsc",
+    "docker-build": "docker build -t ld-toypad-emulator .",
+    "docker-run": "docker run -it --rm ld-toypad-emulator"
   },
   "author": "Berny23",
   "license": "MIT",
@@ -15,12 +17,10 @@
     "express": "5.1.0",
     "node-ld": "https://github.com/Berny23/node-ld.git",
     "socket.io": "^4.8.1",
-    "tsc": "^2.0.4"
+    "tsc": "2.0.4"
   },
   "devDependencies": {
     "bufferutil": "4.0.9",
-    "jest": "^29.7.0",
-    "supertest": "7.1.1",
     "typescript": "^5.8.3",
     "utf-8-validate": "^6.0.5"
   },
