@@ -23,9 +23,12 @@ export const OpenCreationDialogButton = document.getElementById(
   "open-creation-dialog"
 );
 export const CreationDialog = document.getElementById("creation-dialog");
+export const EditDialog = document.getElementById("edit-dialog");
 
 export const EditBox = document.getElementById("edit-action");
 export const DeleteBox = document.getElementById("delete-action");
+
+export const DialogShadow = document.getElementById("shadow");
 export function GetAllBoxes() {
   return document.getElementsByClassName("box");
 }

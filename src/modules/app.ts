@@ -1,7 +1,7 @@
-import characterRoutes from "routes/character.routes";
-import vehicleRoutes from "routes/vehicle.routes";
-import tokenRoutes from "routes/token.routes";
-import imageRoutes from "routes/images.routes";
+import characterRoutes from "../routes/character.routes";
+import vehicleRoutes from "../routes/vehicle.routes";
+import tokenRoutes from "../routes/token.routes";
+import imageRoutes from "../routes/images.routes";
 import express from "express";
 import path from "path";
 

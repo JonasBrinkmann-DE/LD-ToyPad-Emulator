@@ -16,12 +16,13 @@
     <link rel="stylesheet" href="stylesheets/main.css" />
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <script src="libs/Sortable.min.js"></script>
+    <script src="libs/Js.cookie.min.js"></script>
     <script src="socket.io/socket.io.js"></script>
     <script src="scripts/app.js" type="module"></script>
   </head>
 
   <body>
-    <div class="shadow" hidden></div>
+    <div id="shadow" hidden></div>
     <dialog id="creation-dialog">
       <div id="search-area">search area</div>
       <div id="area-wrapper">
@@ -36,7 +37,7 @@
           <img src="" alt="" />
           404
         </div>
-        <div>
+        <div class="wrapper">
           <input type="text" placeholder="Batman" readonly disabled />
           <div class="flex">
             <label for="edit-dialog-id-box">ID:</label>

@@ -1,4 +1,4 @@
-import Tagtypes from "enums/Tagtypes";
+import Tagtypes from "../enums/Tagtypes";
 export interface Toytag {
   name: string;
   id: number;

@@ -13,6 +13,9 @@ export function UpdateToyPadPosition(uid, position, index) {
 export function Place(uid, index, position) {
   socket?.emit("place", uid, index, position);
 }
+export function Delete(uid) {
+  socket?.emit("deleteToken", uid);
+}
 export async function RemoveToken(uid) {
   return (await DELETE(`/tokens/${uid}`)).ok;
 }

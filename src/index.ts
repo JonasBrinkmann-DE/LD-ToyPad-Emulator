@@ -1,10 +1,10 @@
 import http from "http";
-import app from "modules/app";
-import { backup, unplaceAll, validate } from "utils/toytags";
-import { io, setIO, tp } from "modules/bridge";
-import { setupSocket } from "modules/io";
-import { hook } from "modules/hooks";
-import Emits from "enums/Emits";
+import app from "./modules/app";
+import { backup, unplaceAll, validate } from "./utils/toytags";
+import { io, setIO, tp } from "./modules/bridge";
+import { setupSocket } from "./modules/io";
+import { hook } from "./modules/hooks";
+import Emits from "./enums/Emits";
 
 function init() {
   if (!validate()) {

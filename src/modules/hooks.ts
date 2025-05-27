@@ -1,9 +1,9 @@
-import { select, updateKey, updateKeys } from "utils/toytags";
-import { GetColor, RGBToHex } from "utils/conversion";
-import { io, setConnectionStatus, tp } from "modules/bridge";
-import { getAnyNameFromID } from "utils/tagUtils";
-import Tagtypes from "enums/Tagtypes";
-import Emits from "enums/Emits";
+import { select, updateKey, updateKeys } from "../utils/toytags";
+import { GetColor, RGBToHex } from "../utils/conversion";
+import { io, setConnectionStatus, tp } from "../modules/bridge";
+import { getAnyNameFromID } from "../utils/tagUtils";
+import Tagtypes from "../enums/Tagtypes";
+import Emits from "../enums/Emits";
 
 export function hook() {
   tp.hook(tp.CMD_WRITE, handleWriteCommand);

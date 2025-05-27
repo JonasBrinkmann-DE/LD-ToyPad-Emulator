@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
-import { createCharacter, getCharacterNameFromID } from "utils/tagUtils";
-import { tp } from "modules/bridge";
-import { addEntry } from "utils/toytags";
-import { Toytag } from "interfaces/Toytag";
-import Tagtypes from "enums/Tagtypes";
+import { createCharacter, getCharacterNameFromID } from "../utils/tagUtils";
+import { tp } from "../modules/bridge";
+import { addEntry } from "../utils/toytags";
+import { Toytag } from "../interfaces/Toytag";
+import Tagtypes from "../enums/Tagtypes";
 
 const router = express.Router();
 

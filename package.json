@@ -5,6 +5,7 @@
   "repository": "https://github.com/Berny23/LD-ToyPad-Emulator",
   "main": "build/index.js",
   "scripts": {
+    "start-local": "node build/index.js",
     "start": "node build/index.js",
     "build": "tsc",
     "docker-build": "docker build -t ld-toypad-emulator .",
@@ -17,11 +18,10 @@
     "express": "5.1.0",
     "node-ld": "https://github.com/Berny23/node-ld.git",
     "socket.io": "^4.8.1",
-    "tsc": "2.0.4"
+    "typescript": "^5.8.3"
   },
   "devDependencies": {
     "bufferutil": "4.0.9",
-    "typescript": "^5.8.3",
     "utf-8-validate": "^6.0.5"
   },
   "optionalDependencies": {

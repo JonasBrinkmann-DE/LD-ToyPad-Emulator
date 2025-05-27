@@ -1,7 +1,7 @@
-import { Place, RefreshToyBox, UpdateToyPadPosition } from "./api.js";
+import { Delete, RefreshToyBox, UpdateToyPadPosition } from "./api.js";
+import { openEditDialog as OpenEditDialog } from "./dialogs.js";
 import { DeleteBox, EditBox, ToyboxTokens } from "./dom.js";
 import { ApplyFilters } from "./filters.js";
-import { socket } from "./socketHandler.js";
 
 export function createSortables() {
   new Sortable(DeleteBox, {
@@ -12,7 +12,7 @@ export function createSortables() {
     onAdd: function (e) {
       const uid = e.item.getAttribute("uid");
 
-      socket?.emit("deleteToken", uid);
+      Delete(uid);
       setTimeout(async function () {
         await RefreshToyBox();
       }, 500); //TODO: No artificial delay
@@ -24,7 +24,7 @@ export function createSortables() {
     },
     sort: false,
     onAdd: function (e) {
-      //OPEN EDIT DIALOG
+      OpenEditDialog();
       e.from.insertBefore(e.item, e.from.children[e.oldIndex]);
     },
   });

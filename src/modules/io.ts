@@ -1,10 +1,10 @@
 import { Socket } from "socket.io";
-import { isConnectedToGame, tp } from "modules/bridge";
-import { deleteEntry, select, updateKey } from "utils/toytags";
-import Emits from "enums/Emits";
+import { isConnectedToGame, tp } from "../modules/bridge";
+import { deleteEntry, select, updateKey } from "../utils/toytags";
+import Emits from "../enums/Emits";
 import { Server } from "http";
-import { createCharacter, createVehicle } from "utils/tagUtils";
-import { InitializeToyTagsJSON } from "index";
+import { createCharacter, createVehicle } from "../utils/tagUtils";
+import { InitializeToyTagsJSON } from "../index";
 
 //TODO: Implement a feedback system for io requests
 //If the server sends a negative feedback to the client, the client reverts the action on the ui

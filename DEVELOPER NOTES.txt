@@ -1,2 +1,0 @@
-Typescript must be installed globally:
-npm install -g typescript

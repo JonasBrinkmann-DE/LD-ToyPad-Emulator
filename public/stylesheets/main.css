@@ -175,7 +175,7 @@ button:active {
     margin-right: 2em;
 }
 
-.shadow {
+#shadow {
     position: absolute;
     top: 0;
     right: 0;
