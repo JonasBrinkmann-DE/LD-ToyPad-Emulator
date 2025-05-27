@@ -21,7 +21,7 @@ echo -ne "\x06\x00\xFF\x09\x01\xA1\x01\x19\x01\x29\x20\x15\x00\x26\xFF\x00\x75\x
 
 mkdir configs/c.1
 mkdir configs/c.1/strings/0x409
-echo "LEGO READER V2.10" > configs/c.1/strings/0x409/configuration 
+echo "LEGO READER V2.10" > configs/c.1/strings/0x409/configuration
 ln -s functions/hid.g0/ configs/c.1/
 #ln -s functions/acm.g1/ configs/c.1/
 #ln -s functions/ecm.g2/ configs/c.1/
